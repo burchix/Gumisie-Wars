@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GummyBears.Model
 {
-    class Field
+    public class Field
     {
         public decimal GoldMultiplier { get; set; }
         public decimal DefenceMultiplier { get; set; }

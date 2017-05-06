@@ -1,6 +1,8 @@
-﻿namespace GummyBears.Model
+﻿using GummyBears.DTO.Interfaces;
+
+namespace GummyBears.DTO.Models
 {
-    public class Stats
+    public class StatsDB : IObjWithId
     {
         public int Id { get; set; }
         public int GameId { get; set; }

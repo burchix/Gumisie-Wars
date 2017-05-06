@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GummyBears.DTO.Models
 {
-    class MapDB: IObjWithId
+    public class MapDB: IObjWithId
     {
         public int Id { get; set; }
         public string Name { get; set; }

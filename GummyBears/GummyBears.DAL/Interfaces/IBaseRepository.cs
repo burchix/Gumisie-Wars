@@ -1,19 +1,14 @@
 ﻿using GummyBears.DTO.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GummyBears.DAL.Interfaces
 {
     public interface IBaseRepository<DBModel, ServiceModel>
-           where DBModel : IObjWithId
+           where DBModel : class, IObjWithId
            where ServiceModel : class
     {
         ServiceModel GetById(int id);
 
-        List<ServiceModel> GetAll();
+        ServiceModel[] GetAll();
 
         int Create(ServiceModel model);
 
