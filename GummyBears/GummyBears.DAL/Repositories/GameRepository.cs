@@ -23,7 +23,12 @@ namespace GummyBears.DAL.Repositories
             throw new NotImplementedException();
         }
 
-        public Game GetByUser(int userId)
+        public Game[] GetAllByUser(int userId)
+        {
+            return _dbSet.Where(g => g.UserId == userId).Select(g => FromDBToModel(g)).ToArray();
+        }
+
+        public Game GetActualByUser(int userId)
         {
             GameDB dbGame = _dbSet.FirstOrDefault(g => g.UserId == userId && g.IsFinished == false);
             return dbGame == null ? null : FromDBToModel(dbGame);

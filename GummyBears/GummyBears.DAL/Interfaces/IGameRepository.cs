@@ -5,6 +5,8 @@ namespace GummyBears.DAL.Interfaces
 {
     public interface IGameRepository : IBaseRepository<GameDB, Game>
     {
-        Game GetByUser(int id);
+        Game[] GetAllByUser(int userId);
+
+        Game GetActualByUser(int userId);
     }
 }
