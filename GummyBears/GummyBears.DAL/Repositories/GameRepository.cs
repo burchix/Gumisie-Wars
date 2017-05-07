@@ -30,7 +30,7 @@ namespace GummyBears.DAL.Repositories
 
         public Game GetActualByUser(int userId)
         {
-            GameDB dbGame = _dbSet.FirstOrDefault(g => g.UserId == userId && g.IsFinished == false);
+            GameDB dbGame = _dbSet.SingleOrDefault(g => g.UserId == userId && !g.IsFinished);
             return dbGame == null ? null : FromDBToModel(dbGame);
         }
     }

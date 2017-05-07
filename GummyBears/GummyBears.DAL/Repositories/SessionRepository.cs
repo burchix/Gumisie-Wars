@@ -25,7 +25,7 @@ namespace GummyBears.DAL.Repositories
 
         public Session GetByUser(int userId)
         {
-            var dbSession = _dbSet.FirstOrDefault(s => s.UserId == userId);
+            var dbSession = _dbSet.SingleOrDefault(s => s.UserId == userId);
             return FromDBToModel(dbSession);
         }
     }

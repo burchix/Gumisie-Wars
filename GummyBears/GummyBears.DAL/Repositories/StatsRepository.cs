@@ -23,20 +23,20 @@ namespace GummyBears.DAL.Repositories
             throw new NotImplementedException();
         }
 
-        public Stats[] GetBestByMap(int mapId, int n = -1)
+        public Stats[] GetBestByMap(int mapId, int? count = null)
         {
             var best = _dbSet.Where(s => s.MapId == mapId).OrderByDescending(s => s.OverallScore).Take(n);
-            if (n == -1)
-                return best.Take(n).Select(s => FromDBToModel(s)).ToArray();
+            if (count.HasValue)
+                return best.Take(count.Value).Select(s => FromDBToModel(s)).ToArray();
             else
                 return best.Select(s => FromDBToModel(s)).ToArray();
         }
 
-        public Stats[] GetBestByUser(int userId, int n = -1)
+        public Stats[] GetBestByUser(int userId, int? count = null)
         {
             var best = _dbSet.Where(s => s.UserId == userId).OrderByDescending(s => s.OverallScore);
-            if (n == -1)
-                return best.Take(n).Select(s => FromDBToModel(s)).ToArray();
+            if (count.HasValue)
+                return best.Take(count.Value).Select(s => FromDBToModel(s)).ToArray();
             else
                 return best.Select(s => FromDBToModel(s)).ToArray();
         }

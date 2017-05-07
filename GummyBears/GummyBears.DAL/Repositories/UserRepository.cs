@@ -28,7 +28,7 @@ namespace GummyBears.DAL.Repositories
 
         public User GetByLogin(string login)
         {
-            UserDB userDB = _dbSet.FirstOrDefault(u => u.Login == login);
+            UserDB userDB = _dbSet.SingleOrDefault(u => u.Login == login);
             return FromDBToModel(userDB);
         }
     }
