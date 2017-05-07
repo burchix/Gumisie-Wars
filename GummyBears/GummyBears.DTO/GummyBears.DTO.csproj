@@ -41,7 +41,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interfaces\IObjWithId.cs" />
+    <Compile Include="Models\GameDB.cs" />
     <Compile Include="Models\MapDB.cs" />
+    <Compile Include="Models\SessionDB.cs" />
+    <Compile Include="Models\StatsDB.cs" />
+    <Compile Include="Models\UserDB.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

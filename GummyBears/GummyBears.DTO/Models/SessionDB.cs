@@ -1,8 +1,9 @@
-﻿using System;
+﻿using GummyBears.DTO.Interfaces;
+using System;
 
 namespace GummyBears.DTO.Models
 {
-    public class SessionDB
+    public class SessionDB : IObjWithId
     {
         public int Id { get; set; }
         public int UserId { get; set; }

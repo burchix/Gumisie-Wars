@@ -3,7 +3,8 @@ using GummyBears.Model;
 
 namespace GummyBears.DAL.Interfaces
 {
-    interface ISessionRepository: IBaseRepository<StatsDB, Stats>
+    public interface ISessionRepository : IBaseRepository<SessionDB, Session>
     {
+        Session GetByUser(int userId);
     }
 }

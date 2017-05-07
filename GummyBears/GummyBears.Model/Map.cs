@@ -1,4 +1,6 @@
-﻿namespace GummyBears.Model
+﻿using System.Collections.Generic;
+
+namespace GummyBears.Model
 {
     public class Map
     {
