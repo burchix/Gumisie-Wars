@@ -15,8 +15,10 @@ namespace GummyBears.DAL.Repositories
 
         public User GetByLogin(string login)
         {
-            UserDB userDB = _dbSet.SingleOrDefault(u => u.Login == login);
+            UserDB userDB = GetQuery().SingleOrDefault(u => u.Login == login);
             return userDB == null ? null : _mapper.Map<User>(userDB);
         }
+
+        protected override IQueryable<UserDB> BuildQuery(IQueryable<UserDB> query) => query;
     }
 }

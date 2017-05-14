@@ -40,7 +40,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Interfaces\IObjWithId.cs" />
     <Compile Include="Models\GameDB.cs" />
     <Compile Include="Models\MapDB.cs" />
     <Compile Include="Models\SessionDB.cs" />
@@ -48,7 +47,12 @@
     <Compile Include="Models\UserDB.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\GummyBears.Common\GummyBears.Common.csproj">
+      <Project>{8af2c3f9-cdbe-4cf8-b68b-7d6103fb0b2d}</Project>
+      <Name>GummyBears.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1,8 +1,9 @@
-﻿using System;
+﻿using GummyBears.Common.Interfaces;
+using System;
 
 namespace GummyBears.Common.Models
 {
-    public class Session
+    public class Session : IObjWithId
     {
         public int Id { get; set; }
         public int UserId { get; set; }

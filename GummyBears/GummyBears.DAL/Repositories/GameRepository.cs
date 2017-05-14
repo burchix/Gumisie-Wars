@@ -15,13 +15,18 @@ namespace GummyBears.DAL.Repositories
         
         public Game[] GetAllByUser(int userId)
         {
-            return _dbSet.Where(g => g.UserId == userId).Select(g => _mapper.Map<Game>(g)).ToArray();
+            return GetQuery().Where(g => g.UserId == userId).Select(g => _mapper.Map<Game>(g)).ToArray();
         }
 
         public Game GetActualByUser(int userId)
         {
-            GameDB dbGame = _dbSet.SingleOrDefault(g => g.UserId == userId && !g.IsFinished);
+            GameDB dbGame = GetQuery().SingleOrDefault(g => g.UserId == userId && !g.IsFinished);
             return dbGame == null ? null : _mapper.Map<Game>(dbGame);
+        }
+
+        protected override IQueryable<GameDB> BuildQuery(IQueryable<GameDB> query)
+        {
+            return query.Include(x => x.Map).Include(x => x.User);
         }
     }
 }

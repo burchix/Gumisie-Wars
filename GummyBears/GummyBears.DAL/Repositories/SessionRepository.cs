@@ -15,14 +15,16 @@ namespace GummyBears.DAL.Repositories
 
         public Session GetBySessionHandle(string sessionHandle)
         {
-            var dbSession = _dbSet.SingleOrDefault(s => s.SessionHandle == sessionHandle);
+            var dbSession = GetQuery().SingleOrDefault(s => s.SessionHandle == sessionHandle);
             return dbSession == null ? null : _mapper.Map<Session>(dbSession);
         }
 
         public Session GetByUser(int userId)
         {
-            var dbSession = _dbSet.SingleOrDefault(s => s.UserId == userId);
+            var dbSession = GetQuery().SingleOrDefault(s => s.UserId == userId);
             return dbSession  == null ? null : _mapper.Map<Session>(dbSession);
         }
+
+        protected override IQueryable<SessionDB> BuildQuery(IQueryable<SessionDB> query) => query;
     }
 }

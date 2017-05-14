@@ -7,12 +7,12 @@ using GummyBears.Common.Enums;
 
 namespace GummyBears.DAL.Mapper.Resolvers
 {
-    class MapResolver : IValueResolver<MapDB, Map, Field[]>
+    public class MapResolver : IValueResolver<MapDB, Map, Field[]>
     {
         public Field[] Resolve(MapDB source, Map destination, Field[] destMember, ResolutionContext context)
         {
             var defenceMultiplier = source.DefenceMultiplier.Split(';').Select(x => decimal.Parse(x)).ToArray();
-            var gummiesMultiplier = source.GummiesMultiplier.Split(';').Select(x => decimal.Parse(x)).ToArray();
+            var gummiesMultiplier = source.GummiesMultiplier.Split(';').Select(x => int.Parse(x)).ToArray();
             var goldMultiplier = source.GoldMultiplier.Split(';').Select(x => decimal.Parse(x)).ToArray();
             var juiceMultiplier = source.JuiceMultiplier.Split(';').Select(x => decimal.Parse(x)).ToArray();
             var gummiesType = source.GummiesType.Split(';').Select(x => (GummyType)int.Parse(x)).ToArray();

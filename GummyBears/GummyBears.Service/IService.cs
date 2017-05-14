@@ -6,6 +6,13 @@ namespace GummyBears.Service
     [ServiceContract]
     public interface IService
     {
-        //[OperationContract]
+        [OperationContract]
+        string DoLogin(string login, string password);
+
+        [OperationContract]
+        Game StartGame(string sessionHandle, int mapId);
+
+        [OperationContract]
+        Game MakeMove(string sessionHandle, GameAction action);
     }
 }

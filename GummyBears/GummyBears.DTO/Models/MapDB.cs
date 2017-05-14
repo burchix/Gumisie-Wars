@@ -1,4 +1,5 @@
-﻿using GummyBears.DTO.Interfaces;
+﻿using GummyBears.Common.Interfaces;
+using System;
 
 namespace GummyBears.DTO.Models
 {
@@ -6,7 +7,7 @@ namespace GummyBears.DTO.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string CreateDate { get; set; }
+        public DateTime CreateDate { get; set; }
         public int Width { get; set; }
         public int Height { get; set; }
         public string GoldMultiplier { get; set; }

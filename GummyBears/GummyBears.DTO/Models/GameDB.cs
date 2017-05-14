@@ -1,4 +1,4 @@
-﻿using GummyBears.DTO.Interfaces;
+﻿using GummyBears.Common.Interfaces;
 
 namespace GummyBears.DTO.Models
 {
@@ -11,5 +11,8 @@ namespace GummyBears.DTO.Models
         public string OpponentMoves { get; set; }
         public bool IsFinished { get; set; }
         public int Score { get; set; }
+
+        public UserDB User { get; set; }
+        public MapDB Map { get; set; }
     }
 }

@@ -1,6 +1,8 @@
-﻿namespace GummyBears.Common.Models
+﻿using GummyBears.Common.Interfaces;
+
+namespace GummyBears.Common.Models
 {
-    public class Stats
+    public class Stats : IObjWithId
     {
         public int Id { get; set; }
         public int GameId { get; set; }

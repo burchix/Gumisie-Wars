@@ -4,7 +4,9 @@ namespace GummyBears.BLL.Interfaces
 {
     public interface IAuthenticationService
     {
-        bool CheckSession(string sessionHandle);
+        User GetUser(string login, string password);
+
+        bool CheckSession(string sessionHandle, out User user);
 
         string CreateSession(User user);
     }

@@ -15,7 +15,7 @@ namespace GummyBears.DAL.Repositories
 
         public Stats[] GetBestByMap(int mapId, int? count = null)
         {
-            var bestStats = _dbSet.Where(s => s.MapId == mapId).OrderByDescending(s => s.OverallScore);
+            var bestStats = GetQuery().Where(s => s.MapId == mapId).OrderByDescending(s => s.OverallScore);
             if (count.HasValue)
             {
                 bestStats = bestStats.Take(() => count.Value).OrderBy(x => 0);
@@ -26,7 +26,7 @@ namespace GummyBears.DAL.Repositories
 
         public Stats[] GetBestByUser(int userId, int? count = null)
         {
-            var bestStats = _dbSet.Where(s => s.UserId == userId).OrderByDescending(s => s.OverallScore);
+            var bestStats = GetQuery().Where(s => s.UserId == userId).OrderByDescending(s => s.OverallScore);
             if (count.HasValue)
             {
                 bestStats = bestStats.Take(() => count.Value).OrderBy(x => 0);
@@ -34,5 +34,7 @@ namespace GummyBears.DAL.Repositories
 
             return bestStats.Select(s => _mapper.Map<Stats>(s)).ToArray();
         }
+
+        protected override IQueryable<StatsDB> BuildQuery(IQueryable<StatsDB> query) => query;
     }
 }

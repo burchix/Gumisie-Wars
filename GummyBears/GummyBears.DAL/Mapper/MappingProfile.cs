@@ -10,13 +10,6 @@ namespace GummyBears.DAL.Mapper
     {
         public MappingProfile()
         {
-            #region Game
-
-            CreateMap<GameDB, Game>();
-            CreateMap<Game, GameDB>();
-
-            #endregion
-
             #region Stats
 
             CreateMap<StatsDB, Stats>();
@@ -38,10 +31,26 @@ namespace GummyBears.DAL.Mapper
 
             #endregion
 
+            #region Game
+
+            CreateMap<GameDB, Game>()
+                .ForMember(m => m.PlayerMoves, 
+                           opts => opts.ResolveUsing((s, d, m, c) => { c.Items["Player"] = true; return new PlayerActionsResolver().Resolve(s, d, m, c); }))
+                .ForMember(m => m.OpponentMoves, 
+                           opts => opts.ResolveUsing((s, d, m, c) => { c.Items["Player"] = false; return new PlayerActionsResolver().Resolve(s, d, m, c); }));
+
+            CreateMap<Game, GameDB>()
+                .ForMember(db => db.PlayerMoves, 
+                           opts => opts.ResolveUsing((s, d, m, c) => { c.Items["Player"] = true; return new PlayerActionsResolver().Resolve(s, d, m, c); }))
+                .ForMember(db => db.OpponentMoves, 
+                           opts => opts.ResolveUsing((s, d, m, c) => { c.Items["Player"] = false; return new PlayerActionsResolver().Resolve(s, d, m, c); }));
+
+            #endregion
+
             #region Map
 
             CreateMap<MapDB, Map>()
-                .ForMember(m => m.Fields, opts => opts.ResolveUsing<MapResolver>());
+                .ForMember(m => m.Fields, opts => opts.ResolveUsing((s, d, m, c) => new MapResolver().Resolve(s, d, m, c)));
 
             CreateMap<Map, MapDB>()
                 .ForMember(db => db.DefenceMultiplier,

@@ -1,5 +1,6 @@
 ﻿using GummyBears.BLL.Interfaces;
 using GummyBears.Common.Models;
+using System;
 using System.ServiceModel;
 
 namespace GummyBears.Service
@@ -17,17 +18,38 @@ namespace GummyBears.Service
         }
 
         #region Public Methods
+        
+        public string DoLogin(string login, string password)
+        {
+            User user = _authenticationService.GetUser(login, password);
+            return user != null ? _authenticationService.CreateSession(user) : null;
+        }
+
+        public Game StartGame(string sessionHandle, int mapId)
+        {
+            User user = VerifyUser(sessionHandle);
+            return _gameService.StartGame(user, mapId);
+        }
+
+        public Game MakeMove(string sessionHandle, GameAction action)
+        {
+            User user = VerifyUser(sessionHandle);
+            return _gameService.MakeMove(user, action);
+        }
 
         #endregion
 
         #region Private Methods
 
-        private void CheckSession(string sessionHandle)
+        private User VerifyUser(string sessionHandle)
         {
-            if (!_authenticationService.CheckSession(sessionHandle))
+            User user;
+            if (!_authenticationService.CheckSession(sessionHandle, out user))
             {
                 throw new AddressAccessDeniedException("Incorrect session handle");
             }
+
+            return user;
         }
 
         #endregion

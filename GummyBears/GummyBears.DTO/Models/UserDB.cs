@@ -1,4 +1,5 @@
-﻿using GummyBears.DTO.Interfaces;
+﻿using GummyBears.Common.Interfaces;
+using System.Collections.Generic;
 
 namespace GummyBears.DTO.Models
 {

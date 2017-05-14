@@ -40,6 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GameLogic\AILogic.cs" />
+    <Compile Include="GameLogic\MapLogic.cs" />
     <Compile Include="Interfaces\IAuthenticationService.cs" />
     <Compile Include="Interfaces\IGameService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

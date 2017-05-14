@@ -75,6 +75,7 @@
     <Compile Include="Interfaces\IUserRepository.cs" />
     <Compile Include="Mapper\MappingProfile.cs" />
     <Compile Include="Mapper\Resolvers\MapResolver.cs" />
+    <Compile Include="Mapper\Resolvers\PlayerActionsResolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\BaseRepository.cs" />
     <Compile Include="Repositories\GameRepository.cs" />

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using GummyBears.Common.Interfaces;
 using GummyBears.DAL.Interfaces;
-using GummyBears.DTO.Interfaces;
 using System;
 using System.Data.Entity;
 using System.Linq;
@@ -9,7 +9,7 @@ namespace GummyBears.DAL.Repositories
 {
     public abstract class BaseRepository<TDBModel, TModel> : IBaseRepository<TDBModel, TModel>
         where TDBModel : class, IObjWithId
-        where TModel : class
+        where TModel : class, IObjWithId
     {
         protected DbContext _dbContext { get; }
         protected DbSet<TDBModel> _dbSet { get; }
@@ -32,7 +32,7 @@ namespace GummyBears.DAL.Repositories
 
         public virtual void Update(TModel model)
         {
-            TDBModel dbModel = _mapper.Map<TDBModel>(model);
+            TDBModel dbModel = _mapper.Map(model, _dbSet.Find(model.Id));
             _dbContext.Entry(dbModel).State = EntityState.Modified;
             _dbContext.SaveChanges();
         }
@@ -49,15 +49,19 @@ namespace GummyBears.DAL.Repositories
 
         public virtual TModel[] GetAll()
         {
-            var collection = _dbSet.ToList();
+            var collection = BuildQuery(_dbSet).ToList();
             return collection.Select(m => _mapper.Map<TModel>(m)).ToArray();
         }
 
         public virtual TModel GetById(int id)
         {
-            TDBModel dbModel = _dbSet.Find(id);
+            TDBModel dbModel = BuildQuery(_dbSet).SingleOrDefault(x => x.Id == id);
             if (dbModel == null) return null;
             return _mapper.Map<TModel>(dbModel);
         }
+
+        protected IQueryable<TDBModel> GetQuery() => BuildQuery(_dbSet);
+
+        protected abstract IQueryable<TDBModel> BuildQuery(IQueryable<TDBModel> query);
     }
 }

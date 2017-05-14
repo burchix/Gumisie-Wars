@@ -16,22 +16,33 @@ namespace GummyBears.BLL.Services
         private static Random random = new Random();
 
         private ISessionRepository _sessionRepository;
+        private IUserRepository _userRepository;
 
         #endregion
 
         #region Constructor(s)
 
-        public AuthenticationService(ISessionRepository sessionRepository)
+        public AuthenticationService(ISessionRepository sessionRepository, IUserRepository userRepository)
         {
             _sessionRepository = sessionRepository;
+            _userRepository = userRepository;
         }
 
         #endregion
 
         #region Public Methods
 
-        public bool CheckSession(string sessionHandle)
+        public User GetUser(string login, string password)
         {
+            User user = _userRepository.GetByLogin(login);
+
+            if (user != null && user.Password == password) return user;
+            return null;
+        }
+
+        public bool CheckSession(string sessionHandle, out User user)
+        {
+            user = null;
             if (string.IsNullOrWhiteSpace(sessionHandle)) return false;
 
             Session session = _sessionRepository.GetBySessionHandle(sessionHandle);
@@ -39,6 +50,8 @@ namespace GummyBears.BLL.Services
 
             session.EndDate = DateTime.Now.AddMinutes(SESSION_LIFETIME_MIN);
             _sessionRepository.Update(session);
+
+            user = _userRepository.GetById(session.UserId);
 
             return true;
         }

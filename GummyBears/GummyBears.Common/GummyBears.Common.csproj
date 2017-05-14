@@ -40,11 +40,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Consts.cs" />
+    <Compile Include="Enums\ActionType.cs" />
     <Compile Include="Enums\FieldOwner.cs" />
     <Compile Include="Enums\GummyType.cs" />
+    <Compile Include="Enums\PlayerType.cs" />
     <Compile Include="Enums\PossibleMove.cs" />
+    <Compile Include="Interfaces\IObjWithId.cs" />
     <Compile Include="Models\Field.cs" />
     <Compile Include="Models\Game.cs" />
+    <Compile Include="Models\GameAction.cs" />
     <Compile Include="Models\Map.cs" />
     <Compile Include="Models\Session.cs" />
     <Compile Include="Models\Stats.cs" />

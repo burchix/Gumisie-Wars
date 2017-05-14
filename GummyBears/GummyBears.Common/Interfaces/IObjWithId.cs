@@ -1,4 +1,4 @@
-﻿namespace GummyBears.DTO.Interfaces
+﻿namespace GummyBears.Common.Interfaces
 {
     public interface IObjWithId
     {
