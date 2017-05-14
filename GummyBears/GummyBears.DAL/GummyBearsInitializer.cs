@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace GummyBears.DAL
 {
-    public class GummyBearsInitializer : System.Data.Entity.DropCreateDatabaseIfModelChanges<GummyBearsContext>
+    public class GummyBearsInitializer : System.Data.Entity./*DropCreateDatabaseAlways*/DropCreateDatabaseIfModelChanges<GummyBearsContext>
     {
         protected override void Seed(GummyBearsContext context)
         {

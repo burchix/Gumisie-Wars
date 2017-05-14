@@ -1,0 +1,25 @@
+Server	horton.elephantsql.com (horton)
+User & Default database	wlnynpsv
+Password	YkoAzx92aYOd6ukHzT621jLXV1zXBK-i 
+URL	postgres://wlnynpsv:YkoAzx92aYOd6ukHzT621jLXV1zXBK-i@horton.elephantsql.com:5432/wlnynpsv
+
+
+Server=horton.elephantsql.com;Port=5432;Database=wlnynpsv;User Id=wlnynpsv;Password=YkoAzx92aYOd6ukHzT621jLXV1zXBK-i;
+
+
+
+Host
+ec2-54-235-181-120.compute-1.amazonaws.com
+Database
+d2k6r4dia784kg
+User
+xhuhxrccmdzvna
+Port
+5432
+Password
+43dcdf87630463595dd32629af6567e04e89f8212de891cb9b3d6d60dab6c411
+URI
+postgres://xhuhxrccmdzvna:43dcdf87630463595dd32629af6567e04e89f8212de891cb9b3d6d60dab6c411@ec2-54-235-181-120.compute-1.amazonaws.com:5432/d2k6r4dia784kgHeroku CLI
+heroku pg:psql postgresql-flexible-94696 --app application232313
+
+Server=ec2-54-235-181-120.compute-1.amazonaws.com;Port=5432;Database=d2k6r4dia784kg;User Id=xhuhxrccmdzvna;Password=43dcdf87630463595dd32629af6567e04e89f8212de891cb9b3d6d60dab6c411-i;

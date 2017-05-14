@@ -1,10 +1,5 @@
-﻿using GummyBears.DTO.Models;
-using GummyBears.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GummyBears.Common.Models;
+using GummyBears.DTO.Models;
 
 namespace GummyBears.DAL.Interfaces
 {

@@ -2,22 +2,18 @@
 
 namespace GummyBears.DAL.Interfaces
 {
-    public interface IBaseRepository<DBModel, ServiceModel>
-           where DBModel : class, IObjWithId
-           where ServiceModel : class
+    public interface IBaseRepository<TDBModel, TModel>
+        where TDBModel : class, IObjWithId
+        where TModel : class
     {
-        ServiceModel GetById(int id);
+        TModel GetById(int id);
 
-        ServiceModel[] GetAll();
+        TModel[] GetAll();
 
-        int Create(ServiceModel model);
+        int Create(TModel model);
 
-        void Update(ServiceModel model);
+        void Update(TModel model);
 
         void Delete(int id);
-
-        DBModel FromModelToDB(ServiceModel model);
-
-        ServiceModel FromDBToModel(DBModel dbModel);
     }
 }

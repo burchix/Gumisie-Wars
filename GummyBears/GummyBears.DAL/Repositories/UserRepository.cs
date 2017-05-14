@@ -1,35 +1,22 @@
-﻿using GummyBears.DAL.Interfaces;
+﻿using AutoMapper;
+using GummyBears.Common.Models;
+using GummyBears.DAL.Interfaces;
 using GummyBears.DTO.Models;
-using GummyBears.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Data.Entity;
+using System.Linq;
 
 namespace GummyBears.DAL.Repositories
 {
     public class UserRepository : BaseRepository<UserDB, User>, IUserRepository
     {
-        public UserRepository(DbContext dbContext) : base(dbContext)
+        public UserRepository(DbContext dbContext, IMapper mapper) : base(dbContext, mapper)
         {
-        }
-
-        public override User FromDBToModel(UserDB dbModel)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override UserDB FromModelToDB(User model)
-        {
-            throw new NotImplementedException();
         }
 
         public User GetByLogin(string login)
         {
             UserDB userDB = _dbSet.SingleOrDefault(u => u.Login == login);
-            return FromDBToModel(userDB);
+            return userDB == null ? null : _mapper.Map<User>(userDB);
         }
     }
 }

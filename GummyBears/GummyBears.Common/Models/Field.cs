@@ -1,4 +1,6 @@
-﻿namespace GummyBears.Model
+﻿using GummyBears.Common.Enums;
+
+namespace GummyBears.Common.Models
 {
     public class Field
     {
@@ -7,6 +9,7 @@
         public decimal GummiesMultiplier { get; set; }
         public decimal JuiceMultiplier { get; set; }
         public int GummiesNumber { get; set; }
-        public int GummiesType { get; set; }
+        public GummyType GummiesType { get; set; }
+        public FieldOwner Owner { get; set; }
     }
 }
