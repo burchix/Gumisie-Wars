@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{4E06643D-36CF-4F15-980D-1FA15C997E9C}</ProjectGuid>
+    <ProjectGuid>{8AF2C3F9-CDBE-4CF8-B68B-7D6103FB0B2D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>GummyBears.Model</RootNamespace>
-    <AssemblyName>GummyBears.Model</AssemblyName>
+    <RootNamespace>GummyBears.Common</RootNamespace>
+    <AssemblyName>GummyBears.Common</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,13 +40,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Field.cs" />
-    <Compile Include="Game.cs" />
-    <Compile Include="Map.cs" />
+    <Compile Include="Enums\FieldOwner.cs" />
+    <Compile Include="Enums\GummyType.cs" />
+    <Compile Include="Enums\PossibleMove.cs" />
+    <Compile Include="Models\Field.cs" />
+    <Compile Include="Models\Game.cs" />
+    <Compile Include="Models\Map.cs" />
+    <Compile Include="Models\Session.cs" />
+    <Compile Include="Models\Stats.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Session.cs" />
-    <Compile Include="Stats.cs" />
-    <Compile Include="User.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

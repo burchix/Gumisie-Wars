@@ -1,4 +1,4 @@
-﻿namespace GummyBears.Model
+﻿namespace GummyBears.Common.Models
 {
     public class Game
     {

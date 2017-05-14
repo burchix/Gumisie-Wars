@@ -1,40 +1,45 @@
-﻿using GummyBears.DAL.Interfaces;
+﻿using AutoMapper;
+using GummyBears.DAL.Interfaces;
 using GummyBears.DTO.Interfaces;
+using System;
 using System.Data.Entity;
 using System.Linq;
 
 namespace GummyBears.DAL.Repositories
 {
-    public abstract class BaseRepository<DBModel, ServiceModel> : IBaseRepository<DBModel, ServiceModel>
-           where DBModel : class, IObjWithId
-           where ServiceModel : class
+    public abstract class BaseRepository<TDBModel, TModel> : IBaseRepository<TDBModel, TModel>
+        where TDBModel : class, IObjWithId
+        where TModel : class
     {
         protected DbContext _dbContext { get; }
-        protected DbSet<DBModel> _dbSet { get; }
+        protected DbSet<TDBModel> _dbSet { get; }
+        protected IMapper _mapper { get; }
 
-        public BaseRepository(DbContext dbContext)
+        public BaseRepository(DbContext dbContext, IMapper mapper)
         {
             _dbContext = dbContext;
-            _dbSet = _dbContext.Set<DBModel>();
+            _dbSet = _dbContext.Set<TDBModel>();
+            _mapper = mapper;
         }
 
-        public int Create(ServiceModel model)
+        public virtual int Create(TModel model)
         {
-            DBModel dbModel = FromModelToDB(model);
+            TDBModel dbModel = _mapper.Map<TDBModel>(model);
             _dbSet.Add(dbModel);
             _dbContext.SaveChanges();
             return dbModel.Id;
         }
 
-        public void Update(ServiceModel model)
+        public virtual void Update(TModel model)
         {
-            _dbContext.Entry(model).State = EntityState.Modified;
+            TDBModel dbModel = _mapper.Map<TDBModel>(model);
+            _dbContext.Entry(dbModel).State = EntityState.Modified;
             _dbContext.SaveChanges();
         }
 
-        public void Delete(int id)
+        public virtual void Delete(int id)
         {
-            DBModel entity = _dbSet.Find(id);
+            TDBModel entity = _dbSet.Find(id);
             if (entity != null)
             {
                 _dbSet.Remove(entity);
@@ -42,18 +47,17 @@ namespace GummyBears.DAL.Repositories
             }
         }
 
-        public ServiceModel[] GetAll()
+        public virtual TModel[] GetAll()
         {
-            return _dbSet.Select(m => FromDBToModel(m)).ToArray();
+            var collection = _dbSet.ToList();
+            return collection.Select(m => _mapper.Map<TModel>(m)).ToArray();
         }
 
-        public ServiceModel GetById(int id)
+        public virtual TModel GetById(int id)
         {
-            return FromDBToModel(_dbSet.Find(id));
+            TDBModel dbModel = _dbSet.Find(id);
+            if (dbModel == null) return null;
+            return _mapper.Map<TModel>(dbModel);
         }
-
-        public abstract ServiceModel FromDBToModel(DBModel dbModel);
-
-        public abstract DBModel FromModelToDB(ServiceModel model);
     }
 }
