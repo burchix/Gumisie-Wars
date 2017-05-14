@@ -25,7 +25,7 @@ namespace GummyBears.DAL.Repositories
 
         public Stats[] GetBestByMap(int mapId, int? count = null)
         {
-            var best = _dbSet.Where(s => s.MapId == mapId).OrderByDescending(s => s.OverallScore).Take(n);
+            var best = _dbSet.Where(s => s.MapId == mapId).OrderByDescending(s => s.OverallScore).Take(count.Value);
             if (count.HasValue)
                 return best.Take(count.Value).Select(s => FromDBToModel(s)).ToArray();
             else

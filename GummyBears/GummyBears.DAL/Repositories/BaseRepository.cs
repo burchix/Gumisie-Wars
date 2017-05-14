@@ -28,7 +28,8 @@ namespace GummyBears.DAL.Repositories
 
         public void Update(ServiceModel model)
         {
-            _dbContext.Entry(model).State = EntityState.Modified;
+            DBModel dbmodel = FromModelToDB(model);
+            _dbContext.Entry(dbmodel).State = EntityState.Modified;
             _dbContext.SaveChanges();
         }
 
