@@ -7,7 +7,7 @@
         Attack,
         MoveWithJuice,
         Sacrifice,
-        Uprate,
-        Surrend
+        Upgrade,
+        Surrender
     }
 }
