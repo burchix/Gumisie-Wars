@@ -1,6 +1,8 @@
 ﻿using Autofac;
 using Autofac.Integration.Wcf;
 using AutoMapper;
+using GummyBears.BLL.Interfaces;
+using GummyBears.BLL.Logging;
 using GummyBears.DAL;
 using GummyBears.DAL.Mapper;
 using System;
@@ -12,10 +14,22 @@ namespace GummyBears.Service
 {
     public class Global : HttpApplication
     {
+        private ILogger _logger = new Logger();
         protected void Application_Start()
         {
             IContainer container = AutofacContainerBuilder.BuildContainer();
             AutofacHostFactory.Container = container;
+        }
+
+        void Application_Error(object sender, EventArgs e)
+        {
+            // Code that runs when an unhandled error occurs
+
+            // Get the exception object.
+            Exception ex = Server.GetLastError();
+
+            _logger.Write($"{ex.Message}, StackTrace: {ex.StackTrace}", LogLevel.ERROR);
+
         }
     }
 
@@ -27,6 +41,9 @@ namespace GummyBears.Service
             var assemblies = AppDomain.CurrentDomain.GetAssemblies();
 
             builder.RegisterType<Service>();
+
+            //Logger
+            //builder.RegisterType<Logger>().As<ILogger>().SingleInstance();
 
             builder.RegisterType<GummyBearsContext>().As<DbContext>();
             builder.RegisterAssemblyTypes(assemblies)
