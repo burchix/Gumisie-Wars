@@ -11,5 +11,9 @@ namespace GummyBears.Common.Models
         public int FinalGold { get; set; }
         public int FinalGummies { get; set; }
         public int OverallScore { get; set; }
+
+        public Game Game { get; set; }
+        public User User { get; set; }
+        public Map Map { get; set; }
     }
 }

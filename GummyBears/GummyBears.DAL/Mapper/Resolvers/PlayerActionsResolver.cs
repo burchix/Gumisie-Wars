@@ -39,7 +39,7 @@ namespace GummyBears.DAL.Mapper.Resolvers
                 destMember += $"{(int)action.Action}|{action.Field1}|{action.Field2}|{action.Value.ToString("N2")}|{action.State};";
             }
 
-            return destMember;
+            return destMember ?? string.Empty;
         }
     }
 }

@@ -6,5 +6,6 @@ namespace GummyBears.BLL.Interfaces
     {
         Game StartGame(User user, int mapId);
         Game MakeMove(User user, GameAction action);
+        Map[] GetAllMaps();
     }
 }

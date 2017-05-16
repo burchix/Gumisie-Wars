@@ -25,6 +25,11 @@ namespace GummyBears.Service
             return user != null ? _authenticationService.CreateSession(user) : null;
         }
 
+        public Map[] GetMaps()
+        {
+            return _gameService.GetAllMaps();
+        }
+
         public Game StartGame(string sessionHandle, int mapId)
         {
             User user = VerifyUser(sessionHandle);
