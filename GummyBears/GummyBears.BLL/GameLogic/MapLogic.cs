@@ -16,7 +16,7 @@ namespace GummyBears.BLL.GameLogic
             switch (action.Action)
             {
                 case ActionType.Void:
-                case ActionType.Surrend:
+                case ActionType.Surrender:
                     break;
 
                 case ActionType.Move:
@@ -43,7 +43,7 @@ namespace GummyBears.BLL.GameLogic
                     action.Value = field1.GummiesNumber * Consts.GUMMY_TO_JUICE;
                     break;
 
-                case ActionType.Uprate:
+                case ActionType.Upgrade:
                     action.Value = field1.GummiesNumber * (action.State ? Consts.MAGIC_COST : Consts.WARRIOR_COST);
                     break;
 
@@ -76,7 +76,7 @@ namespace GummyBears.BLL.GameLogic
                 case ActionType.Void:
                     break;
 
-                case ActionType.Surrend:
+                case ActionType.Surrender:
                     game.IsFinished = true;
                     game.Score = game.ComputeScore();
                     break;
@@ -102,7 +102,7 @@ namespace GummyBears.BLL.GameLogic
                     else game.Map.JuiceAI += action.Value;
                     break;
 
-                case ActionType.Uprate:
+                case ActionType.Upgrade:
                     field1.GummiesType = action.State ? GummyType.Magical : GummyType.Warrior;
                     if (playerType == PlayerType.Player) game.Map.Money -= action.Value;
                     else game.Map.MoneyAI -= action.Value;
