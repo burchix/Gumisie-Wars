@@ -12,9 +12,13 @@ namespace GummyBearsGame
         [STAThread]
         static void Main()
         {
+            GameService.ServiceClient gameService = new GameService.ServiceClient();
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new LoginForm());
+            Application.Run(new LoginForm(gameService));
+
+            gameService.Close();
         }
     }
 }

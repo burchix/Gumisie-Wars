@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:52291/Service.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/GummyBears.Common.Models" />
+  <xs:element name="DoLogin">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="login" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="password" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DoLoginResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="DoLoginResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetMaps">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetMapsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/GummyBears.Common.Models" minOccurs="0" name="GetMapsResult" nillable="true" type="q1:ArrayOfMap" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="StartGame">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="sessionHandle" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="mapId" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="StartGameResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/GummyBears.Common.Models" minOccurs="0" name="StartGameResult" nillable="true" type="q2:Game" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="MakeMove">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="sessionHandle" nillable="true" type="xs:string" />
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/GummyBears.Common.Models" minOccurs="0" name="action" nillable="true" type="q3:GameAction" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="MakeMoveResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/GummyBears.Common.Models" minOccurs="0" name="MakeMoveResult" nillable="true" type="q4:Game" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

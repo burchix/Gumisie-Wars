@@ -31,14 +31,17 @@ namespace GummyBears.BLL.Services
 
         #region Public Methods
 
+        public Map[] GetAllMaps() => _mapRepository.GetAll();
+
         // Jeżeli użytkownik ma jakąś nieukończoną grę, to jest ona zwracana
         public Game StartGame(User user, int mapId)
         {
             Game actualGame = _gameRepository.GetActualByUser(user.Id);
             if (actualGame != null) return actualGame.ProceedMapToLastState();
             
-            Game game = new Game() { MapId = mapId, User = user };
-            _gameRepository.Create(game);
+            Game game = new Game() { MapId = mapId, UserId = user.Id };
+            game.Id = _gameRepository.Create(game);
+            game = _gameRepository.GetById(game.Id);
             return game;
         }
 

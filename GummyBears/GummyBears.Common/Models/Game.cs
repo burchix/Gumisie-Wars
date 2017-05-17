@@ -5,6 +5,12 @@ namespace GummyBears.Common.Models
 {
     public class Game : IObjWithId
     {
+        public Game()
+        {
+            PlayerMoves = new List<GameAction>();
+            OpponentMoves = new List<GameAction>();
+        }
+
         public int Id { get; set; }
         public int UserId { get; set; }
         public int MapId { get; set; }

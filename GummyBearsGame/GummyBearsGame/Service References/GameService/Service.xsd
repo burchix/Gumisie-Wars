@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/GummyBears.Common.Enums" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/GummyBears.Common.Enums" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:simpleType name="GummyType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Basic" />
+      <xs:enumeration value="Warrior" />
+      <xs:enumeration value="Magical" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="GummyType" nillable="true" type="tns:GummyType" />
+  <xs:simpleType name="FieldOwner">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="NoOne" />
+      <xs:enumeration value="Player" />
+      <xs:enumeration value="AI" />
+      <xs:enumeration value="Blocked" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="FieldOwner" nillable="true" type="tns:FieldOwner" />
+  <xs:simpleType name="ActionType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Void" />
+      <xs:enumeration value="Move" />
+      <xs:enumeration value="Attack" />
+      <xs:enumeration value="MoveWithJuice" />
+      <xs:enumeration value="Sacrifice" />
+      <xs:enumeration value="Uprate" />
+      <xs:enumeration value="Surrend" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="ActionType" nillable="true" type="tns:ActionType" />
+</xs:schema>

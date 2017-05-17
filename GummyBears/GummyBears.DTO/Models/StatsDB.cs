@@ -1,5 +1,4 @@
 ﻿using GummyBears.Common.Interfaces;
-
 namespace GummyBears.DTO.Models
 {
     public class StatsDB : IObjWithId
@@ -11,5 +10,9 @@ namespace GummyBears.DTO.Models
         public int FinalGold { get; set; }
         public int FinalGummies { get; set; }
         public int OverallScore { get; set; }
+
+        public GameDB Game { get; set; }
+        public UserDB User { get; set; }
+        public MapDB Map { get; set; }
     }
 }

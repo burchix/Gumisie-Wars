@@ -10,6 +10,9 @@ namespace GummyBears.Service
         string DoLogin(string login, string password);
 
         [OperationContract]
+        Map[] GetMaps();
+
+        [OperationContract]
         Game StartGame(string sessionHandle, int mapId);
 
         [OperationContract]
