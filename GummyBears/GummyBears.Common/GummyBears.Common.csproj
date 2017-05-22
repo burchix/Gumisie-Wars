@@ -45,7 +45,7 @@
     <Compile Include="Enums\FieldOwner.cs" />
     <Compile Include="Enums\GummyType.cs" />
     <Compile Include="Enums\PlayerType.cs" />
-    <Compile Include="Enums\PossibleMove.cs" />
+    <Compile Include="Enums\PossibleActions.cs" />
     <Compile Include="Interfaces\IObjWithId.cs" />
     <Compile Include="Models\Field.cs" />
     <Compile Include="Models\Game.cs" />

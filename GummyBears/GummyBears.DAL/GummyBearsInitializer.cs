@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace GummyBears.DAL
 {
-    public class GummyBearsInitializer : System.Data.Entity.DropCreateDatabaseAlways/*DropCreateDatabaseIfModelChanges*/<GummyBearsContext>
+    public class GummyBearsInitializer : System.Data.Entity./*DropCreateDatabaseAlways*/DropCreateDatabaseIfModelChanges<GummyBearsContext>
     {
         protected override void Seed(GummyBearsContext context)
         {
@@ -30,6 +30,21 @@ namespace GummyBears.DAL
                 Owner = "1;1;0;3;1;0;0;0;0;0;0;2;3;0;2;2"
             };
             context.Maps.Add(map);
+            var map2 = new MapDB()
+            {
+                Width = 3,
+                Height = 3,
+                CreateDate = DateTime.Now,
+                Name = "Basic Map no. 2",
+                DefenceMultiplier = "1,0;1,0;1,0;1,0;1,0;1,0;1,0;1,0;1,0",
+                JuiceMultiplier = "1,0;1,0;1,0;1,0;1,0;1,0;1,0;1,0;1,0",
+                GoldMultiplier = "1,0;1,0;1,0;1,0;1,0;1,0;1,0;1,0;1,0",
+                GummiesMultiplier = "1;1;1;1;1;1;1;1;1",
+                GummiesNumber = "0;0;0;0;0;0;0;0;0;0",
+                GummiesType = "0;0;0;0;0;0;0;0;0;0",
+                Owner = "1;0;0;0;0;0;0;0;2"
+            };
+            context.Maps.Add(map2);
 
             context.SaveChanges();
         }

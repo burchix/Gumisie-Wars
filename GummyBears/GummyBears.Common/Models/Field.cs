@@ -10,6 +10,8 @@ namespace GummyBears.Common.Models
         public int GummiesMultiplier { get; set; }
         public GummyType GummiesType { get; set; }
         public FieldOwner Owner { get; set; }
+
+        private int gummiesNumber;
         public int GummiesNumber
         {
             get { return gummiesNumber; }
@@ -20,6 +22,6 @@ namespace GummyBears.Common.Models
             }
         }
 
-        private int gummiesNumber;
+        public PossibleActions PossibleActions { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using GummyBears.Common.Interfaces;
+﻿using GummyBears.Common.Enums;
+using GummyBears.Common.Interfaces;
 using System.Collections.Generic;
 
 namespace GummyBears.Common.Models

@@ -123,9 +123,15 @@ namespace GummyBears.BLL.GameLogic
             game.Map.JuiceAI += game.Map.Fields.Where(f => f.Owner == FieldOwner.AI).Sum(f => f.JuiceMultiplier);
             game.Map.MoneyAI += game.Map.Fields.Where(f => f.Owner == FieldOwner.AI).Sum(f => f.GoldMultiplier);
 
-            foreach (Field field in game.Map.Fields)
-                if (field.Owner == FieldOwner.AI || field.Owner == FieldOwner.Player && field.GummiesType == GummyType.Basic)
-                    field.GummiesNumber += field.GummiesMultiplier;
+            var fieldPlayer = game.Map.Fields.Where(f => f.Owner == FieldOwner.Player && f.GummiesType == GummyType.Basic)
+                                             .OrderByDescending(f => f.GummiesMultiplier)
+                                             .FirstOrDefault();
+            if (fieldPlayer != null) fieldPlayer.GummiesNumber += fieldPlayer.GummiesMultiplier;
+
+            var fieldAI = game.Map.Fields.Where(f => f.Owner == FieldOwner.AI && f.GummiesType == GummyType.Basic)
+                                             .OrderByDescending(f => f.GummiesMultiplier)
+                                             .FirstOrDefault();
+            if (fieldAI != null) fieldAI.GummiesNumber += fieldPlayer.GummiesMultiplier;
 
             return game;
         }

@@ -17,7 +17,7 @@ namespace GummyBearsGame.Forms
         private Map map;
         private Field activeField;
 
-        public GameForm()
+        public GameForm(string sessionHandle, GameService.Map mappp)
         {
             InitializeComponent();
             map = new Map()

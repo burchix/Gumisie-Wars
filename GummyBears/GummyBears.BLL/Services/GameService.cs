@@ -57,6 +57,10 @@ namespace GummyBears.BLL.Services
                       .ProceedMapStep(actualGame.OpponentMoves.Last(), PlayerType.AI)
                       .UpdateResources();
 
+            //TODO; sprawdzanie czy gra skończona
+
+            ActionsLogic.GetPossibleActions(actualGame.Map);
+
             _gameRepository.Update(actualGame);
 
             return actualGame;

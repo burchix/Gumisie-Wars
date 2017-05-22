@@ -1,4 +1,6 @@
 ﻿using GummyBearsGame.Properties;
+using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -11,7 +13,7 @@ namespace GummyBearsGame.Forms
         private int windowImageIndex;
 
         private GameService.ServiceClient _gameService;
-        private GameService.Map[] _maps;
+        private List<GameService.Map> _maps;
 
         public LoginForm(GameService.ServiceClient gameService)
         {
@@ -22,8 +24,9 @@ namespace GummyBearsGame.Forms
         private void LoginForm_Load(object sender, System.EventArgs e)
         {
             changeImageTimer.Start();
-            _maps = _gameService.GetMaps();
-            mapComboBox.DataSource = _maps.Select(m => m.Name);
+            _maps = _gameService.GetMaps().ToList();
+            mapComboBox.DataSource = _maps.Select(m => m.Name).ToList();
+            mapComboBox.SelectedIndex = -1;
         }
 
         private void changeImageTimer_Tick(object sender, System.EventArgs e)
@@ -35,7 +38,40 @@ namespace GummyBearsGame.Forms
 
         private void loginButton_Click(object sender, System.EventArgs e)
         {
-            new GameForm().ShowDialog();
+            string sessionHandle = _gameService.DoLogin(loginTextBox.Text, passwordTextBox.Text);
+            if (!string.IsNullOrEmpty(sessionHandle) && mapComboBox.SelectedIndex >= 0)
+            {
+                new GameForm(sessionHandle, _maps[mapComboBox.SelectedIndex]).ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Nieprawidłowe dane logowania");
+            }
+        }
+
+        private void mapComboBox_SelectedIndexChanged(object sender, System.EventArgs e)
+        {
+            if (mapComboBox.SelectedIndex >= 0)
+            {
+                var map = _maps[mapComboBox.SelectedIndex];
+                Graphics g = mapPreviewPanel.CreateGraphics();
+                g.Clear(mapPreviewPanel.BackColor);
+
+                float w = (float)Math.Floor(mapPreviewPanel.Width / (float)map.Width);
+                float h = (float)Math.Floor(mapPreviewPanel.Height / (float)map.Height);
+
+                int k = 0;
+                for (int j = 0; j < map.Height; j++)
+                    for (int i = 0; i < map.Width; i++)
+                    {
+                        Brush brush = map.Fields[k].Owner == GameService.FieldOwner.AI ? Brushes.Tomato :
+                                      map.Fields[k].Owner == GameService.FieldOwner.Player ? Brushes.LimeGreen :
+                                      map.Fields[k].Owner == GameService.FieldOwner.NoOne ? Brushes.Silver : new SolidBrush(mapPreviewPanel.BackColor);
+                        g.FillRectangle(brush, w * i + 1, h * j + 1, w - 2, h - 2);
+
+                        k++;
+                    }
+            }
         }
     }
 }

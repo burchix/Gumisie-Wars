@@ -16,6 +16,8 @@ namespace GummyBears.Common
         };
         
         public const int JUICE_ATTACK_MULTIPLE = 5;
-        public const int GUMMY_TO_JUICE = 15;
+        public const int GUMMY_TO_JUICE = 20;
+
+        public const int JUICE_ON_ONE_GUMMY = 10;
     }
 }

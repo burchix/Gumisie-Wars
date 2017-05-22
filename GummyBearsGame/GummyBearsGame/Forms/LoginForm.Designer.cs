@@ -33,14 +33,13 @@
             this.loginButton = new System.Windows.Forms.Button();
             this.loginLabel = new System.Windows.Forms.Label();
             this.passwordLabel = new System.Windows.Forms.Label();
-            this.mapPreviewPictureBox = new System.Windows.Forms.PictureBox();
             this.selectMapLabel = new System.Windows.Forms.Label();
             this.mapComboBox = new System.Windows.Forms.ComboBox();
             this.loginTextBox = new System.Windows.Forms.TextBox();
             this.passwordTextBox = new System.Windows.Forms.TextBox();
             this.iconPictureBox = new System.Windows.Forms.PictureBox();
             this.changeImageTimer = new System.Windows.Forms.Timer(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.mapPreviewPictureBox)).BeginInit();
+            this.mapPreviewPanel = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.iconPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -75,14 +74,6 @@
             this.passwordLabel.TabIndex = 2;
             this.passwordLabel.Text = "Hasło:";
             // 
-            // mapPreviewPictureBox
-            // 
-            this.mapPreviewPictureBox.Location = new System.Drawing.Point(290, 101);
-            this.mapPreviewPictureBox.Name = "mapPreviewPictureBox";
-            this.mapPreviewPictureBox.Size = new System.Drawing.Size(122, 122);
-            this.mapPreviewPictureBox.TabIndex = 3;
-            this.mapPreviewPictureBox.TabStop = false;
-            // 
             // selectMapLabel
             // 
             this.selectMapLabel.AutoSize = true;
@@ -102,6 +93,7 @@
             this.mapComboBox.Name = "mapComboBox";
             this.mapComboBox.Size = new System.Drawing.Size(122, 24);
             this.mapComboBox.TabIndex = 6;
+            this.mapComboBox.SelectedIndexChanged += new System.EventHandler(this.mapComboBox_SelectedIndexChanged);
             // 
             // loginTextBox
             // 
@@ -135,17 +127,24 @@
             this.changeImageTimer.Interval = 4000;
             this.changeImageTimer.Tick += new System.EventHandler(this.changeImageTimer_Tick);
             // 
+            // mapPreviewPanel
+            // 
+            this.mapPreviewPanel.Location = new System.Drawing.Point(290, 101);
+            this.mapPreviewPanel.Name = "mapPreviewPanel";
+            this.mapPreviewPanel.Size = new System.Drawing.Size(122, 122);
+            this.mapPreviewPanel.TabIndex = 9;
+            // 
             // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(421, 265);
+            this.Controls.Add(this.mapPreviewPanel);
             this.Controls.Add(this.passwordTextBox);
             this.Controls.Add(this.loginTextBox);
             this.Controls.Add(this.mapComboBox);
             this.Controls.Add(this.iconPictureBox);
             this.Controls.Add(this.selectMapLabel);
-            this.Controls.Add(this.mapPreviewPictureBox);
             this.Controls.Add(this.passwordLabel);
             this.Controls.Add(this.loginLabel);
             this.Controls.Add(this.loginButton);
@@ -156,7 +155,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Gumisie Wars";
             this.Load += new System.EventHandler(this.LoginForm_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.mapPreviewPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.iconPictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -170,11 +168,11 @@
         private System.Windows.Forms.Label passwordLabel;
         private System.Windows.Forms.Label selectMapLabel;
         private System.Windows.Forms.ComboBox mapComboBox;
-        private System.Windows.Forms.PictureBox mapPreviewPictureBox;
         private System.Windows.Forms.TextBox loginTextBox;
         private System.Windows.Forms.TextBox passwordTextBox;
         private System.Windows.Forms.PictureBox iconPictureBox;
         private System.Windows.Forms.Timer changeImageTimer;
+        private System.Windows.Forms.Panel mapPreviewPanel;
     }
 }
 

@@ -51,7 +51,7 @@ namespace GummyBears.Service
             User user;
             if (!_authenticationService.CheckSession(sessionHandle, out user))
             {
-                throw new AddressAccessDeniedException("Incorrect session handle");
+                throw new Exception("Incorrect session handle");
             }
 
             return user;
