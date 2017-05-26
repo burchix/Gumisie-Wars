@@ -232,6 +232,9 @@ namespace GummyBearsGame.GameService {
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private GummyBearsGame.GameService.FieldOwner OwnerField;
         
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private GummyBearsGame.GameService.PossibleActions PossibleActionsField;
+        
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
@@ -333,6 +336,19 @@ namespace GummyBearsGame.GameService {
             }
         }
         
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public GummyBearsGame.GameService.PossibleActions PossibleActions {
+            get {
+                return this.PossibleActionsField;
+            }
+            set {
+                if ((this.PossibleActionsField.Equals(value) != true)) {
+                    this.PossibleActionsField = value;
+                    this.RaisePropertyChanged("PossibleActions");
+                }
+            }
+        }
+        
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         
         protected void RaisePropertyChanged(string propertyName) {
@@ -372,6 +388,60 @@ namespace GummyBearsGame.GameService {
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Blocked = 3,
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.FlagsAttribute()]
+    [System.Runtime.Serialization.DataContractAttribute(Name="PossibleActions", Namespace="http://schemas.datacontract.org/2004/07/GummyBears.Common.Enums")]
+    public enum PossibleActions : int {
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        None = 0,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Up = 1,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Down = 2,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Right = 4,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Left = 8,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        AttackUp = 16,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        AttackDown = 32,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        AttackRight = 64,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        AttackLeft = 128,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        BoostUp = 256,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        BoostDown = 512,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        BoostRight = 1024,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        BoostLeft = 2048,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        ImproveMagic = 4096,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        ImproveWarrior = 8192,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Sacrifice = 16384,
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -785,10 +855,10 @@ namespace GummyBearsGame.GameService {
         Sacrifice = 4,
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
-        Uprate = 5,
+        Upgrade = 5,
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
-        Surrend = 6,
+        Surrender = 6,
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]

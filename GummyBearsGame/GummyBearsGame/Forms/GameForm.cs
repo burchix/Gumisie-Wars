@@ -1,82 +1,24 @@
-﻿using GummyBearsGame.Properties;
+﻿using GummyBearsGame.GameService;
+using GummyBearsGame.Properties;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GummyBearsGame.Forms
 {
     public partial class GameForm : Form
     {
-        private Map map;
-        private Field activeField;
+        private string _sessionHandle;
+        private Game _game;
+        private Field _activeField;
+        private int _activeIndex = -1;
 
-        public GameForm(string sessionHandle, GameService.Map mappp)
+        public GameForm(string sessionHandle, Game game)
         {
             InitializeComponent();
-            map = new Map()
-            {
-                Height = 7,
-                Width = 7,
-                Fields = new List<Field>()
-                {
-                    new Field() { IsVisible = true, GummiesMultiple = 1.2m, GummyType = GummyType.Magic, JuiceMultiple = 0.2m, IsActive = true, IsPlayer = true, MoneyMultiple = 0 },
-                    new Field() { IsVisible = true, IsActive = false },
-                    new Field() { IsVisible = true, GummiesCount = 2, GummiesMultiple = 1.2m, GummyType = GummyType.Warrior, JuiceMultiple = 0.2m, IsActive = true, IsPlayer = true,MoneyMultiple = 0 },
-                    new Field() { IsVisible = true, IsActive = false },
-                    new Field() { IsVisible = true, GummiesCount = 2, GummiesMultiple = 1.2m, GummyType = GummyType.Magic, JuiceMultiple = 0.2m, IsActive = true, IsPlayer = true,MoneyMultiple = 0 },
-                    new Field() { IsVisible = true, IsActive = false },
-                    new Field() { IsVisible = true, IsActive = false },
-                    new Field() { IsVisible = true, GummiesMultiple = 1.2m, GummyType = GummyType.Basic, JuiceMultiple = 0.2m, IsActive = true,IsPlayer = true, MoneyMultiple = 0 },
-                    new Field() { IsVisible = true, GummiesCount = 2, GummiesMultiple = 1.2m, GummyType = GummyType.Warrior, JuiceMultiple = 0.2m, IsActive = true, IsPlayer = true, MoneyMultiple = 0 },
-                    new Field() { IsVisible = true, GummiesCount = 2, GummiesMultiple = 1.2m, GummyType = GummyType.Magic, JuiceMultiple = 0.2m, IsActive = true, IsPlayer = true, MoneyMultiple = 0 },
-                    new Field() { IsVisible = true, GummiesCount = 2, GummiesMultiple = 1.2m, GummyType = GummyType.Magic, JuiceMultiple = 0.2m, IsActive = true, IsPlayer = true, MoneyMultiple = 0 },
-                    new Field() { IsVisible = true, GummiesCount = 2, GummiesMultiple = 1.2m, GummyType = GummyType.Magic, JuiceMultiple = 0.2m, IsActive = true, IsPlayer = true, MoneyMultiple = 0 },
-                    new Field() { IsVisible = true, GummiesCount = 2, GummiesMultiple = 1.2m, GummyType = GummyType.Basic, JuiceMultiple = 0.2m, IsActive = true, IsPlayer = true, MoneyMultiple = 0 },
-                    new Field() { IsVisible = true, GummiesMultiple = 1.2m, GummyType = GummyType.Magic, JuiceMultiple = 0.2m, IsActive = true, IsPlayer = true, MoneyMultiple = 0 },
-                    new Field() { IsVisible = true, GummiesMultiple = 1.2m, GummyType = GummyType.Warrior, JuiceMultiple = 0.2m, IsActive = true, MoneyMultiple = 0 },
-                    new Field() { IsVisible = true, GummiesCount = 2, GummiesMultiple = 1.2m, GummyType = GummyType.Basic, JuiceMultiple = 0.2m, IsActive = true, MoneyMultiple = 0 },
-                    new Field() { IsVisible = true, GummiesCount = 2, GummiesMultiple = 1.2m, GummyType = GummyType.Warrior, JuiceMultiple = 0.2m, IsActive = true, MoneyMultiple = 0 },
-                    new Field() { IsVisible = true, GummiesCount = 2, GummiesMultiple = 1.2m, GummyType = GummyType.Magic, JuiceMultiple = 0.2m, IsActive = true, MoneyMultiple = 0 },
-                    new Field() { IsVisible = true, GummiesCount = 2, GummiesMultiple = 1.2m, GummyType = GummyType.Magic, JuiceMultiple = 0.2m, IsActive = true, MoneyMultiple = 0 },
-                    new Field() { IsVisible = true, IsActive = false },
-                    new Field() { IsVisible = true, IsActive = false },
-                    new Field() { IsVisible = true, GummiesCount = 2, GummiesMultiple = 1.2m, GummyType = GummyType.Magic, JuiceMultiple = 0.2m, IsActive = true, MoneyMultiple = 0 },
-                    new Field() { IsVisible = true, IsActive = false },
-                    new Field() { IsVisible = true, IsActive = false },
-                    new Field() { IsVisible = true, IsActive = false },
-                    new Field() { IsVisible = true, IsActive = false },
-                    new Field() { IsVisible = true, IsActive = false },
-                    new Field() { IsVisible = true, IsActive = false },
-                    new Field() { IsVisible = true, IsActive = false },
-                    new Field() { IsVisible = true, IsActive = false },
-                    new Field() { IsVisible = true, IsActive = false },
-                    new Field() { IsVisible = true, GummiesCount = 2, GummiesMultiple = 1.2m, GummyType = GummyType.Basic, JuiceMultiple = 0.2m, IsActive = true, MoneyMultiple = 0 },
-                    new Field() { IsVisible = false, GummiesCount = 2, GummiesMultiple = 1.2m, GummyType = GummyType.Magic, JuiceMultiple = 0.2m, IsActive = true, MoneyMultiple = 0 },
-                    new Field() { IsVisible = true, GummiesCount = 2, GummiesMultiple = 1.2m, GummyType = GummyType.Basic, JuiceMultiple = 0.2m, IsActive = true, MoneyMultiple = 0 },
-                    new Field() { IsVisible = true, GummiesCount = 2, GummiesMultiple = 1.2m, GummyType = GummyType.Magic, JuiceMultiple = 0.2m, IsActive = true, MoneyMultiple = 0 },
-                    new Field() { IsVisible = true, GummiesCount = 2, GummiesMultiple = 1.2m, GummyType = GummyType.Warrior, JuiceMultiple = 0.2m, IsActive = true, MoneyMultiple = 0 },
-                    new Field() { IsVisible = true, GummiesCount = 2, GummiesMultiple = 1.2m, GummyType = GummyType.Magic, JuiceMultiple = 0.2m, IsActive = true, MoneyMultiple = 0 },
-                    new Field() { IsVisible = false, GummiesCount = 2, GummiesMultiple = 1.2m, GummyType = GummyType.Basic, JuiceMultiple = 0.2m, IsActive = true, MoneyMultiple = 0 },
-                    new Field() { IsVisible = true, GummiesCount = 2, GummiesMultiple = 1.2m, GummyType = GummyType.Warrior, JuiceMultiple = 0.2m, IsActive = true, MoneyMultiple = 0 },
-                    new Field() { IsVisible = true, GummiesCount = 2, GummiesMultiple = 1.2m, GummyType = GummyType.Magic, JuiceMultiple = 0.2m, IsActive = true, MoneyMultiple = 0 },
-                    new Field() { IsVisible = false, GummiesCount = 2, GummiesMultiple = 1.2m, GummyType = GummyType.Magic, JuiceMultiple = 0.2m, IsActive = true, MoneyMultiple = 0 },
-                    new Field() { IsVisible = true, GummiesCount = 2, GummiesMultiple = 1.2m, GummyType = GummyType.Basic, JuiceMultiple = 0.2m, IsActive = true, MoneyMultiple = 0 },
-                    new Field() { IsVisible = false, GummiesCount = 2, GummiesMultiple = 1.2m, GummyType = GummyType.Warrior, JuiceMultiple = 0.2m, IsActive = true, MoneyMultiple = 0 },
-                    new Field() { IsVisible = false, GummiesCount = 2, GummiesMultiple = 1.2m, GummyType = GummyType.Magic, JuiceMultiple = 0.2m, IsActive = true, MoneyMultiple = 0 },
-                    new Field() { IsVisible = true, IsActive = false },
-                    new Field() { IsVisible = true, IsActive = false },
-                    new Field() { IsVisible = true, IsActive = false },
-                    new Field() { IsVisible = true, IsActive = false },
-                    new Field() { IsVisible = true, IsActive = false }
-                }
-            };
+            _game = game;
+            _sessionHandle = sessionHandle;
         }
 
         private void GameForm_Load(object sender, EventArgs e)
@@ -87,17 +29,23 @@ namespace GummyBearsGame.Forms
 
         private void RefreshGame()
         {
-            goldLabel.Text = $"Złoto: {21}";
-            juiceLabel.Text = $"Sok z gumijagód: {112}%";
+            if (_game?.Map?.Money != null)
+            {
+                goldLabel.Text = $"Złoto: {_game.Map.Money}";
+                juiceLabel.Text = $"Sok z gumijagód: {_game.Map.Juice}";
+            }
         }
 
         private void GameForm_Paint(object sender, PaintEventArgs e)
         {
             DrawMap();
+            RefreshGame();
         }
 
         private void DrawMap()
         {
+            var map = _game.Map;
+
             Graphics g = gamePanel.CreateGraphics();
             g.Clear(gamePanel.BackColor);
             float w = (float)Math.Floor(gamePanel.Width / (float)map.Width);
@@ -109,7 +57,7 @@ namespace GummyBearsGame.Forms
                 {
                     var field = map.Fields[k];
 
-                    Brush brush = new SolidBrush(!field.IsActive ? Color.Silver : (field.IsPlayer ? Color.LimeGreen : Color.Tomato));
+                    Brush brush = new SolidBrush(field.Owner == FieldOwner.NoOne ? Color.Silver : (field.Owner == FieldOwner.Player ? Color.LimeGreen : Color.Tomato));
                     Pen blackPen = new Pen(Color.Black);
                     Pen activePen = new Pen(Color.Gold);
                     Brush blackBrush = new SolidBrush(Color.Black);
@@ -118,35 +66,35 @@ namespace GummyBearsGame.Forms
 
                     g.FillRectangle(brush, w * i + 1, h * j + 1, w - 2, h - 2);
                     //g.DrawRectangle(blackPen, w * i + 1, h * j + 1, w - 2, h - 2);
-                    if (field == activeField) g.DrawRectangle(blackPen, w * i, h * j, w - 1, h - 1);
-                    if (field.IsActive)
+                    if (field == _activeField) g.DrawRectangle(blackPen, w * i, h * j, w - 1, h - 1);
+                    if (field.Owner != FieldOwner.Blocked)
                     {
-                        if (field.IsPlayer || field.IsVisible)
+                        if (field.Owner != FieldOwner.NoOne)
                         {
                             Image image = null;
-                            switch (field.GummyType)
+                            switch (field.GummiesType)
                             {
                                 case GummyType.Basic:
-                                    image = field.IsPlayer ? Resources.gummiBasic : Resources.trollBasic;
+                                    image = field.Owner == FieldOwner.Player ? Resources.gummiBasic : Resources.trollBasic;
                                     break;
-                                case GummyType.Magic:
-                                    image = field.IsPlayer ? Resources.gummiMagic : Resources.trollMagic;
+                                case GummyType.Magical:
+                                    image = field.Owner == FieldOwner.Player ? Resources.gummiMagic : Resources.trollMagic;
                                     break;
                                 case GummyType.Warrior:
-                                    image = field.IsPlayer ? Resources.gummiWarrior : Resources.trollWarrior;
+                                    image = field.Owner == FieldOwner.Player ? Resources.gummiWarrior : Resources.trollWarrior;
                                     break;
                             }
 
-                            if (field.GummiesCount > 0)
+                            if (field.GummiesNumber > 0)
                             {
                                 g.DrawImage(image, new RectangleF(w * i + 5, h * j + 20, w - 60, h - 40));
-                                g.DrawString($"x{field.GummiesCount}", font, blackBrush, w * i + w - 55, h * j + 20);
+                                g.DrawString($"x{field.GummiesNumber}", font, blackBrush, w * i + w - 55, h * j + 20);
                             }
                         }
 
-                        g.DrawString($"Gumisie: {field.GummiesMultiple}", smallFont, blackBrush, w * i + w - 60, h * j + h - 48);
-                        g.DrawString($"Sok: {field.JuiceMultiple}", smallFont, blackBrush, w * i + w - 60, h * j + h - 36);
-                        g.DrawString($"Złoto: {field.MoneyMultiple}", smallFont, blackBrush, w * i + w - 60, h * j + h - 24);
+                        g.DrawString($"Gumisie: {field.GummiesMultiplier}", smallFont, blackBrush, w * i + w - 60, h * j + h - 48);
+                        g.DrawString($"Sok: {field.JuiceMultiplier}", smallFont, blackBrush, w * i + w - 60, h * j + h - 36);
+                        g.DrawString($"Złoto: {field.GoldMultiplier}", smallFont, blackBrush, w * i + w - 60, h * j + h - 24);
                         g.DrawString($"Obrona: x{1.5}", smallFont, blackBrush, w * i + w - 60, h * j + h - 12);
                     }
 
@@ -161,12 +109,13 @@ namespace GummyBearsGame.Forms
 
         private void gamePanel_MouseClick(object sender, MouseEventArgs e)
         {
-            int x = e.X * map.Width / gamePanel.Width;
-            int y = e.Y * map.Height / gamePanel.Height;
-            int index = y * map.Width + x;
-            if (map.Fields[index].IsActive && map.Fields[index].IsPlayer)
+            int x = e.X * _game.Map.Width / gamePanel.Width;
+            int y = e.Y * _game.Map.Height / gamePanel.Height;
+            int index = y * _game.Map.Width + x;
+            if (_game.Map.Fields[index].Owner == FieldOwner.Player)
             {
-                activeField = map.Fields[index];
+                _activeField = _game.Map.Fields[index];
+                _activeIndex = index;
                 EnableOperations();
                 DrawMap();
             }
@@ -174,15 +123,37 @@ namespace GummyBearsGame.Forms
 
         private void EnableOperations()
         {
-            if (activeField == null || activeField.GummiesCount == 0)
+            if (_activeField == null)
             {
-                moveButton.Enabled = attackButton.Enabled = improveButton.Enabled = sacrificeButton.Enabled = false;
+                actionsPanel.Controls.OfType<Button>().ToList().ForEach(b => b.Enabled = false);
             }
             else
             {
-                moveButton.Enabled = improveButton.Enabled = sacrificeButton.Enabled = true;
-                attackButton.Enabled = activeField.GummyType == GummyType.Magic;
+                var possibilities = _activeField.PossibleActions;
+
+                sacrificeButton.Enabled = possibilities.HasFlag(PossibleActions.Sacrifice);
+
+                improveWarriorButton.Enabled = possibilities.HasFlag(PossibleActions.ImproveWarrior);
+                improveMagicButton.Enabled = possibilities.HasFlag(PossibleActions.ImproveMagic);
+
+                attackLeftButton.Enabled = possibilities.HasFlag(PossibleActions.AttackLeft);
+                attackRightButton.Enabled = possibilities.HasFlag(PossibleActions.AttackRight);
+                attackUpButton.Enabled = possibilities.HasFlag(PossibleActions.AttackUp);
+                attackDownButton.Enabled = possibilities.HasFlag(PossibleActions.AttackDown);
+
+                moveLeftButton.Enabled = possibilities.HasFlag(PossibleActions.Left);
+                moveRightButton.Enabled = possibilities.HasFlag(PossibleActions.Right);
+                moveUpButton.Enabled = possibilities.HasFlag(PossibleActions.Up);
+                moveDownButton.Enabled = possibilities.HasFlag(PossibleActions.Down);
+
+                attackWithJuiceLeftButton.Enabled = possibilities.HasFlag(PossibleActions.BoostLeft);
+                attackWithJuiceRightButton.Enabled = possibilities.HasFlag(PossibleActions.BoostRight);
+                attackWithJuiceUpButton.Enabled = possibilities.HasFlag(PossibleActions.BoostUp);
+                attackWithJuiceDownButton.Enabled = possibilities.HasFlag(PossibleActions.BoostDown);
             }
+
+            endTourButton.Enabled = true;
+            surrendButton.Enabled = true;
         }
     }
 }

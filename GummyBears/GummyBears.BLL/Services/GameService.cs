@@ -42,6 +42,9 @@ namespace GummyBears.BLL.Services
             Game game = new Game() { MapId = mapId, UserId = user.Id };
             game.Id = _gameRepository.Create(game);
             game = _gameRepository.GetById(game.Id);
+
+            ActionsLogic.GetPossibleActions(actualGame.Map);
+
             return game;
         }
 

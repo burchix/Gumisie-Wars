@@ -1,4 +1,5 @@
-﻿using GummyBearsGame.Properties;
+﻿using GummyBearsGame.GameService;
+using GummyBearsGame.Properties;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -12,10 +13,10 @@ namespace GummyBearsGame.Forms
         private Image[] windowImages = { Resources.gummiMagic, Resources.trollMagic, Resources.gummiWarrior, Resources.trollWarrior };
         private int windowImageIndex;
 
-        private GameService.ServiceClient _gameService;
-        private List<GameService.Map> _maps;
+        private ServiceClient _gameService;
+        private List<Map> _maps;
 
-        public LoginForm(GameService.ServiceClient gameService)
+        public LoginForm(ServiceClient gameService)
         {
             InitializeComponent();
             _gameService = gameService;
@@ -41,7 +42,8 @@ namespace GummyBearsGame.Forms
             string sessionHandle = _gameService.DoLogin(loginTextBox.Text, passwordTextBox.Text);
             if (!string.IsNullOrEmpty(sessionHandle) && mapComboBox.SelectedIndex >= 0)
             {
-                new GameForm(sessionHandle, _maps[mapComboBox.SelectedIndex]).ShowDialog();
+                Game game = _gameService.StartGame(sessionHandle, _maps[mapComboBox.SelectedIndex].Id);
+                new GameForm(sessionHandle, game).ShowDialog();
             }
             else
             {

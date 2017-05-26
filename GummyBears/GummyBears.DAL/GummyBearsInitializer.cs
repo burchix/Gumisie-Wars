@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace GummyBears.DAL
 {
-    public class GummyBearsInitializer : System.Data.Entity./*DropCreateDatabaseAlways*/DropCreateDatabaseIfModelChanges<GummyBearsContext>
+    public class GummyBearsInitializer : System.Data.Entity.DropCreateDatabaseAlways/*DropCreateDatabaseIfModelChanges*/<GummyBearsContext>
     {
         protected override void Seed(GummyBearsContext context)
         {
@@ -40,7 +40,7 @@ namespace GummyBears.DAL
                 JuiceMultiplier = "1,0;1,0;1,0;1,0;1,0;1,0;1,0;1,0;1,0",
                 GoldMultiplier = "1,0;1,0;1,0;1,0;1,0;1,0;1,0;1,0;1,0",
                 GummiesMultiplier = "1;1;1;1;1;1;1;1;1",
-                GummiesNumber = "0;0;0;0;0;0;0;0;0;0",
+                GummiesNumber = "1;0;0;0;0;0;0;0;0;1",
                 GummiesType = "0;0;0;0;0;0;0;0;0;0",
                 Owner = "1;0;0;0;0;0;0;0;2"
             };

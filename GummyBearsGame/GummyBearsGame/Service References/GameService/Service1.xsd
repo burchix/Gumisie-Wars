@@ -37,6 +37,7 @@
       <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/GummyBears.Common.Enums" minOccurs="0" name="GummiesType" type="q1:GummyType" />
       <xs:element minOccurs="0" name="JuiceMultiplier" type="xs:decimal" />
       <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/GummyBears.Common.Enums" minOccurs="0" name="Owner" type="q2:FieldOwner" />
+      <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/GummyBears.Common.Enums" minOccurs="0" name="PossibleActions" type="q3:PossibleActions" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Field" nillable="true" type="tns:Field" />
@@ -62,7 +63,7 @@
   <xs:element name="ArrayOfGameAction" nillable="true" type="tns:ArrayOfGameAction" />
   <xs:complexType name="GameAction">
     <xs:sequence>
-      <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/GummyBears.Common.Enums" minOccurs="0" name="Action" type="q3:ActionType" />
+      <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/GummyBears.Common.Enums" minOccurs="0" name="Action" type="q4:ActionType" />
       <xs:element minOccurs="0" name="Field1" type="xs:int" />
       <xs:element minOccurs="0" name="Field2" type="xs:int" />
       <xs:element minOccurs="0" name="State" type="xs:boolean" />
