@@ -11,8 +11,8 @@ namespace GummyBears.Common.Models
         public GummyType GummiesType { get; set; }
         public FieldOwner Owner { get; set; }
 
-        private int gummiesNumber;
-        public int GummiesNumber
+        private decimal gummiesNumber;
+        public decimal GummiesNumber
         {
             get { return gummiesNumber; }
             set

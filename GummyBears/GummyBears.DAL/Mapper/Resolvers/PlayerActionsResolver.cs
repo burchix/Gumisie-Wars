@@ -32,6 +32,7 @@ namespace GummyBears.DAL.Mapper.Resolvers
 
         public string Resolve(Game source, GameDB destination, string destMember, ResolutionContext context)
         {
+            destMember = string.Empty;
             List<GameAction> actions = context.Items["Player"] as bool? == true ? source.PlayerMoves : source.OpponentMoves;
 
             foreach (var action in actions)

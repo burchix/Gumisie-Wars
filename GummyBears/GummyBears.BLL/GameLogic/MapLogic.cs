@@ -20,31 +20,47 @@ namespace GummyBears.BLL.GameLogic
                     break;
 
                 case ActionType.Move:
-                    var result = field1.GummiesNumber * Consts.GUMMY_POWER[field1.GummiesType] -
-                                 field2.GummiesNumber * Consts.GUMMY_POWER[field1.GummiesType] * field2.DefenceMultiplier;
-                    action.State = result > 0;
-                    action.Value = (int)Math.Abs(result);
+                    if (field1.Owner != field2.Owner && field2.Owner == FieldOwner.AI || field2.Owner == FieldOwner.Player)
+                    {
+                        var result = Math.Floor(field1.GummiesNumber) * Consts.GUMMY_POWER[field1.GummiesType] -
+                                     Math.Floor(field2.GummiesNumber) * Consts.GUMMY_POWER[field1.GummiesType] * field2.DefenceMultiplier;
+                        action.State = result > 0;
+                        action.Value = (int)Math.Abs(result);
+                    }
+                    else
+                    {
+                        action.State = true;
+                        action.Value = Math.Floor(field1.GummiesNumber);
+                    }
                     break;
 
                 case ActionType.MoveWithJuice:
-                    result = field1.GummiesNumber * Consts.GUMMY_POWER[field1.GummiesType] * Consts.JUICE_ATTACK_MULTIPLE -
-                             field2.GummiesNumber * Consts.GUMMY_POWER[field1.GummiesType] * field2.DefenceMultiplier;
-                    action.State = result > 0;
-                    action.Value = (int)Math.Abs(result);
+                    if (field1.Owner != field2.Owner && field2.Owner == FieldOwner.AI || field2.Owner == FieldOwner.Player)
+                    {
+                        var result = Math.Floor(field1.GummiesNumber) * Consts.GUMMY_POWER[field1.GummiesType] * Consts.JUICE_ATTACK_MULTIPLE -
+                                     Math.Floor(field2.GummiesNumber) * Consts.GUMMY_POWER[field1.GummiesType] * field2.DefenceMultiplier;
+                        action.State = result > 0;
+                        action.Value = (int)Math.Abs(result);
+                    }
+                    else
+                    {
+                        action.State = true;
+                        action.Value = Math.Floor(field1.GummiesNumber);
+                    }
                     break;
 
                 case ActionType.Attack:
-                    action.Value = field2.GummiesNumber * field2.DefenceMultiplier -
-                                   field1.GummiesNumber * Consts.GUMMY_POWER[field1.GummiesType];
+                    action.Value = Math.Floor(field2.GummiesNumber) * field2.DefenceMultiplier -
+                                   Math.Floor(field1.GummiesNumber) * Consts.GUMMY_POWER[field1.GummiesType];
                     action.Value = Math.Max(0, (int)action.Value);
                     break;
 
                 case ActionType.Sacrifice:
-                    action.Value = field1.GummiesNumber * Consts.GUMMY_TO_JUICE;
+                    action.Value = Math.Floor(field1.GummiesNumber) * Consts.GUMMY_TO_JUICE;
                     break;
 
                 case ActionType.Upgrade:
-                    action.Value = field1.GummiesNumber * (action.State ? Consts.MAGIC_COST : Consts.WARRIOR_COST);
+                    action.Value = Math.Floor(field1.GummiesNumber) * (action.State ? Consts.MAGIC_COST : Consts.WARRIOR_COST);
                     break;
 
                 default:
@@ -78,14 +94,18 @@ namespace GummyBears.BLL.GameLogic
 
                 case ActionType.Surrender:
                     game.IsFinished = true;
-                    game.Score = game.ComputeScore();
                     break;
 
-                case ActionType.Move:
                 case ActionType.MoveWithJuice:
+                case ActionType.Move:
+                    if (action.Action == ActionType.MoveWithJuice)
+                    {
+                        if (playerType == PlayerType.Player) game.Map.Juice -= Math.Floor(field1.GummiesNumber) * Consts.JUICE_ON_ONE_GUMMY;
+                        else game.Map.JuiceAI -= Math.Floor(field1.GummiesNumber) * Consts.JUICE_ON_ONE_GUMMY;
+                    }
                     field1.GummiesNumber = 0;
-                    field2.GummiesNumber = (int)action.Value;
-                    if (field1.Owner != field2.Owner && action.State)
+                    field2.GummiesNumber = Math.Floor(action.Value);
+                    if (action.State)
                     {
                         field2.Owner = playerType == PlayerType.Player ? FieldOwner.Player : FieldOwner.AI;
                         field2.GummiesType = field1.GummiesType;
@@ -123,15 +143,16 @@ namespace GummyBears.BLL.GameLogic
             game.Map.JuiceAI += game.Map.Fields.Where(f => f.Owner == FieldOwner.AI).Sum(f => f.JuiceMultiplier);
             game.Map.MoneyAI += game.Map.Fields.Where(f => f.Owner == FieldOwner.AI).Sum(f => f.GoldMultiplier);
 
+            var fieldsList = game.Map.Fields.ToList();
             var fieldPlayer = game.Map.Fields.Where(f => f.Owner == FieldOwner.Player && f.GummiesType == GummyType.Basic)
-                                             .OrderByDescending(f => f.GummiesMultiplier)
+                                             .OrderBy(f => (fieldsList.IndexOf(f) % game.Map.Width) + (fieldsList.IndexOf(f) / game.Map.Height))
                                              .FirstOrDefault();
-            if (fieldPlayer != null) fieldPlayer.GummiesNumber += fieldPlayer.GummiesMultiplier;
+            if (fieldPlayer != null) fieldPlayer.GummiesNumber += game.Map.Fields.Where(f => f.Owner == FieldOwner.Player).Sum(f => f.GummiesMultiplier) / 4.76m;
 
             var fieldAI = game.Map.Fields.Where(f => f.Owner == FieldOwner.AI && f.GummiesType == GummyType.Basic)
-                                             .OrderByDescending(f => f.GummiesMultiplier)
+                                             .OrderByDescending(f => (fieldsList.IndexOf(f) % game.Map.Width) + (fieldsList.IndexOf(f) / game.Map.Height))
                                              .FirstOrDefault();
-            if (fieldAI != null) fieldAI.GummiesNumber += fieldPlayer.GummiesMultiplier;
+            if (fieldAI != null) fieldAI.GummiesNumber += game.Map.Fields.Where(f => f.Owner == FieldOwner.AI).Sum(f => f.GummiesMultiplier) / 4.76m;
 
             return game;
         }

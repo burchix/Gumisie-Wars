@@ -15,12 +15,12 @@ namespace GummyBears.DAL.Repositories
         
         public Game[] GetAllByUser(int userId)
         {
-            return GetQuery().Where(g => g.UserId == userId).Select(g => _mapper.Map<Game>(g)).ToArray();
+            return GetQuery().AsNoTracking().Where(g => g.UserId == userId).ToList().Select(g => _mapper.Map<Game>(g)).ToArray();
         }
 
         public Game GetActualByUser(int userId)
         {
-            GameDB dbGame = GetQuery().SingleOrDefault(g => g.UserId == userId && !g.IsFinished);
+            GameDB dbGame = GetQuery().AsNoTracking().SingleOrDefault(g => g.UserId == userId && !g.IsFinished);
             return dbGame == null ? null : _mapper.Map<Game>(dbGame);
         }
 

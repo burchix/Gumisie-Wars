@@ -15,16 +15,18 @@ namespace GummyBears.BLL.Services
         private IGameRepository _gameRepository;
         private IMapRepository _mapRepository;
         private IUserRepository _userRepository;
+        private IStatsRepository _statRepository;
 
         #endregion
 
         #region Constructor(s)
 
-        public GameService(IGameRepository gameRepository, IMapRepository mapRepository, IUserRepository userRepository)
+        public GameService(IGameRepository gameRepository, IMapRepository mapRepository, IUserRepository userRepository, IStatsRepository statRepository)
         {
             _gameRepository = gameRepository;
             _mapRepository = mapRepository;
             _userRepository = userRepository;
+            _statRepository = statRepository;
         }
 
         #endregion
@@ -37,13 +39,16 @@ namespace GummyBears.BLL.Services
         public Game StartGame(User user, int mapId)
         {
             Game actualGame = _gameRepository.GetActualByUser(user.Id);
-            if (actualGame != null) return actualGame.ProceedMapToLastState();
-            
+            if (actualGame != null)
+            {
+                return actualGame.ProceedMapToLastState();
+            }
+
             Game game = new Game() { MapId = mapId, UserId = user.Id };
             game.Id = _gameRepository.Create(game);
-            game = _gameRepository.GetById(game.Id);
+            game.Map = _mapRepository.GetById(mapId);
 
-            ActionsLogic.GetPossibleActions(actualGame.Map);
+            ActionsLogic.GetPossibleActions(game.Map);
 
             return game;
         }
@@ -60,9 +65,25 @@ namespace GummyBears.BLL.Services
                       .ProceedMapStep(actualGame.OpponentMoves.Last(), PlayerType.AI)
                       .UpdateResources();
 
-            //TODO; sprawdzanie czy gra skończona
+            if (actualGame.IsFinished || !actualGame.Map.Fields.Any(x => x.Owner == FieldOwner.AI) || !actualGame.Map.Fields.Any(x => x.Owner == FieldOwner.Player))
+            {
+                actualGame.IsFinished = true;
+                actualGame.Score = actualGame.ComputeScore();
 
-            ActionsLogic.GetPossibleActions(actualGame.Map);
+                _statRepository.Create(new Stats()
+                {
+                    FinalGold = (int)actualGame.Map.Money,
+                    FinalGummies = (int)actualGame.Map.Fields.Where(x => x.Owner == FieldOwner.Player).Sum(x => x.GummiesNumber),
+                    GameId = actualGame.Id,
+                    MapId = actualGame.MapId,
+                    OverallScore = actualGame.Score,
+                    UserId = actualGame.UserId
+                });
+            }
+            else
+            {
+                ActionsLogic.GetPossibleActions(actualGame.Map);
+            }
 
             _gameRepository.Update(actualGame);
 

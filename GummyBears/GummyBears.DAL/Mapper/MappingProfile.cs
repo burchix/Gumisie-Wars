@@ -62,7 +62,7 @@ namespace GummyBears.DAL.Mapper
                 .ForMember(db => db.JuiceMultiplier,
                            opts => opts.ResolveUsing((s, d, m) => string.Join(";", s.Fields.Select(x => x.JuiceMultiplier.ToString("N2")))))
                 .ForMember(db => db.GummiesNumber,
-                           opts => opts.ResolveUsing((s, d, m) => string.Join(";", s.Fields.Select(x => x.GummiesNumber))))
+                           opts => opts.ResolveUsing((s, d, m) => string.Join(";", s.Fields.Select(x => x.GummiesNumber.ToString("N2")))))
                 .ForMember(db => db.GummiesType,
                            opts => opts.ResolveUsing((s, d, m) => string.Join(";", s.Fields.Select(x => (int)x.GummiesType))))
                 .ForMember(db => db.Owner,

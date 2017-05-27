@@ -9,14 +9,16 @@ namespace GummyBearsGame.Forms
 {
     public partial class GameForm : Form
     {
+        private ServiceClient _gameService;
         private string _sessionHandle;
         private Game _game;
         private Field _activeField;
         private int _activeIndex = -1;
 
-        public GameForm(string sessionHandle, Game game)
+        public GameForm(ServiceClient gameService, string sessionHandle, Game game)
         {
             InitializeComponent();
+            _gameService = gameService;
             _game = game;
             _sessionHandle = sessionHandle;
         }
@@ -24,22 +26,29 @@ namespace GummyBearsGame.Forms
         private void GameForm_Load(object sender, EventArgs e)
         {
             EnableOperations();
-            RefreshGame();
-        }
-
-        private void RefreshGame()
-        {
-            if (_game?.Map?.Money != null)
-            {
-                goldLabel.Text = $"Złoto: {_game.Map.Money}";
-                juiceLabel.Text = $"Sok z gumijagód: {_game.Map.Juice}";
-            }
+            UpdateGame();
         }
 
         private void GameForm_Paint(object sender, PaintEventArgs e)
         {
             DrawMap();
-            RefreshGame();
+        }
+
+        private void UpdateGame()
+        {
+            _activeField = null;
+            _activeIndex = -1;
+            DrawMap();
+            EnableOperations();
+            
+            goldLabel.Text = $"Złoto: {_game.Map.Money}";
+            juiceLabel.Text = $"Sok z gumijagód: {_game.Map.Juice}";
+
+            if (_game.IsFinished)
+            {
+                MessageBox.Show($"Koniec gry! Wynik: {_game.Score}");
+                Close();
+            }
         }
 
         private void DrawMap()
@@ -57,7 +66,7 @@ namespace GummyBearsGame.Forms
                 {
                     var field = map.Fields[k];
 
-                    Brush brush = new SolidBrush(field.Owner == FieldOwner.NoOne ? Color.Silver : (field.Owner == FieldOwner.Player ? Color.LimeGreen : Color.Tomato));
+                    Brush brush = new SolidBrush(field.Owner == FieldOwner.NoOne ? Color.Silver : (field.Owner == FieldOwner.Blocked ? Color.Gray :(field.Owner == FieldOwner.Player ? Color.LimeGreen : Color.Tomato)));
                     Pen blackPen = new Pen(Color.Black);
                     Pen activePen = new Pen(Color.Gold);
                     Brush blackBrush = new SolidBrush(Color.Black);
@@ -88,7 +97,7 @@ namespace GummyBearsGame.Forms
                             if (field.GummiesNumber > 0)
                             {
                                 g.DrawImage(image, new RectangleF(w * i + 5, h * j + 20, w - 60, h - 40));
-                                g.DrawString($"x{field.GummiesNumber}", font, blackBrush, w * i + w - 55, h * j + 20);
+                                g.DrawString($"x{field.GummiesNumber.ToString("N2")}", font, blackBrush, w * i + w - 55, h * j + 20);
                             }
                         }
 
@@ -155,5 +164,128 @@ namespace GummyBearsGame.Forms
             endTourButton.Enabled = true;
             surrendButton.Enabled = true;
         }
+
+        #region User Actions
+
+        private void moveUpButton_Click(object sender, EventArgs e)
+        {
+            GameAction action = new GameAction() { Action = ActionType.Move, Field1 = _activeIndex, Field2 = _activeIndex - _game.Map.Width };
+            _game = _gameService.MakeMove(_sessionHandle, action);
+            UpdateGame();
+        }
+
+        private void moveDownButton_Click(object sender, EventArgs e)
+        {
+            GameAction action = new GameAction() { Action = ActionType.Move, Field1 = _activeIndex, Field2 = _activeIndex + _game.Map.Width };
+            _game = _gameService.MakeMove(_sessionHandle, action);
+            UpdateGame();
+        }
+
+        private void moveRightButton_Click(object sender, EventArgs e)
+        {
+            GameAction action = new GameAction() { Action = ActionType.Move, Field1 = _activeIndex, Field2 = _activeIndex + 1 };
+            _game = _gameService.MakeMove(_sessionHandle, action);
+            UpdateGame();
+        }
+
+        private void moveLeftButton_Click(object sender, EventArgs e)
+        {
+            GameAction action = new GameAction() { Action = ActionType.Move, Field1 = _activeIndex, Field2 = _activeIndex - 1 };
+            _game = _gameService.MakeMove(_sessionHandle, action);
+            UpdateGame();
+        }
+
+        private void attackUpButton_Click(object sender, EventArgs e)
+        {
+            GameAction action = new GameAction() { Action = ActionType.Attack, Field1 = _activeIndex, Field2 = _activeIndex - _game.Map.Width };
+            _game = _gameService.MakeMove(_sessionHandle, action);
+            UpdateGame();
+        }
+
+        private void attackDownButton_Click(object sender, EventArgs e)
+        {
+            GameAction action = new GameAction() { Action = ActionType.Attack, Field1 = _activeIndex, Field2 = _activeIndex + _game.Map.Width };
+            _game = _gameService.MakeMove(_sessionHandle, action);
+            UpdateGame();
+        }
+
+        private void attackRightButton_Click(object sender, EventArgs e)
+        {
+            GameAction action = new GameAction() { Action = ActionType.Attack, Field1 = _activeIndex, Field2 = _activeIndex + 1 };
+            _game = _gameService.MakeMove(_sessionHandle, action);
+            UpdateGame();
+        }
+
+        private void attackLeftButton_Click(object sender, EventArgs e)
+        {
+            GameAction action = new GameAction() { Action = ActionType.Attack, Field1 = _activeIndex, Field2 = _activeIndex - 1 };
+            _game = _gameService.MakeMove(_sessionHandle, action);
+            UpdateGame();
+        }
+
+        private void attackWithJuiceUpButton_Click(object sender, EventArgs e)
+        {
+            GameAction action = new GameAction() { Action = ActionType.MoveWithJuice, Field1 = _activeIndex, Field2 = _activeIndex - _game.Map.Width };
+            _game = _gameService.MakeMove(_sessionHandle, action);
+            UpdateGame();
+        }
+
+        private void attackWithJuiceDownButton_Click(object sender, EventArgs e)
+        {
+            GameAction action = new GameAction() { Action = ActionType.MoveWithJuice, Field1 = _activeIndex, Field2 = _activeIndex + _game.Map.Width };
+            _game = _gameService.MakeMove(_sessionHandle, action);
+            UpdateGame();
+        }
+
+        private void attackWithJuiceRightButton_Click(object sender, EventArgs e)
+        {
+            GameAction action = new GameAction() { Action = ActionType.MoveWithJuice, Field1 = _activeIndex, Field2 = _activeIndex + 1 };
+            _game = _gameService.MakeMove(_sessionHandle, action);
+            UpdateGame();
+        }
+
+        private void attackWithJuiceLeftButton_Click(object sender, EventArgs e)
+        {
+            GameAction action = new GameAction() { Action = ActionType.MoveWithJuice, Field1 = _activeIndex, Field2 = _activeIndex - 1 };
+            _game = _gameService.MakeMove(_sessionHandle, action);
+            UpdateGame();
+        }
+
+        private void surrendButton_Click(object sender, EventArgs e)
+        {
+            GameAction action = new GameAction() { Action = ActionType.Surrender };
+            _game = _gameService.MakeMove(_sessionHandle, action);
+            UpdateGame();
+        }
+
+        private void endTourButton_Click(object sender, EventArgs e)
+        {
+            GameAction action = new GameAction() { Action = ActionType.Void };
+            _game = _gameService.MakeMove(_sessionHandle, action);
+            UpdateGame();
+        }
+
+        private void sacrificeButton_Click(object sender, EventArgs e)
+        {
+            GameAction action = new GameAction() { Action = ActionType.Sacrifice };
+            _game = _gameService.MakeMove(_sessionHandle, action);
+            UpdateGame();
+        }
+
+        private void improveMagicButton_Click(object sender, EventArgs e)
+        {
+            GameAction action = new GameAction() { Action = ActionType.Upgrade, Field1 = _activeIndex, State = true };
+            _game = _gameService.MakeMove(_sessionHandle, action);
+            UpdateGame();
+        }
+
+        private void improveWarriorButton_Click(object sender, EventArgs e)
+        {
+            GameAction action = new GameAction() { Action = ActionType.Upgrade, Field1 = _activeIndex, State = false };
+            _game = _gameService.MakeMove(_sessionHandle, action);
+            UpdateGame();
+        }
+
+        #endregion
     }
 }

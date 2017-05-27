@@ -15,13 +15,13 @@ namespace GummyBears.BLL.GameLogic
                 {
                     PossibleActions result = PossibleActions.None;
 
-                    if (fields[k].Owner == FieldOwner.Player && fields[k].GummiesNumber > 0)
+                    if (fields[k].Owner == FieldOwner.Player && fields[k].GummiesNumber >= 1)
                     {
                         //Sacrifice
                         result |= PossibleActions.Sacrifice;
 
                         //Right
-                        if (k % map.Width != 1 &&
+                        if (k % map.Width != (map.Width - 1) &&
                             fields[k + 1].Owner != FieldOwner.Blocked &&
                             (fields[k + 1].Owner != FieldOwner.Player || fields[k + 1].GummiesNumber == 0 || fields[k + 1].GummiesType == fields[k].GummiesType))
                             result |= PossibleActions.Right;
@@ -90,13 +90,13 @@ namespace GummyBears.BLL.GameLogic
                 {
                     PossibleActions result = PossibleActions.None;
 
-                    if (fields[k].Owner == FieldOwner.AI && fields[k].GummiesNumber > 0)
+                    if (fields[k].Owner == FieldOwner.AI && fields[k].GummiesNumber >= 1)
                     {
                         //Sacrifice
                         result |= PossibleActions.Sacrifice;
 
                         //Right
-                        if (k % map.Width != 1 &&
+                        if (k % map.Width != (map.Width - 1) &&
                             fields[k + 1].Owner != FieldOwner.Blocked &&
                             (fields[k + 1].Owner != FieldOwner.AI || fields[k + 1].GummiesNumber == 0 || fields[k + 1].GummiesType == fields[k].GummiesType))
                             result |= PossibleActions.Right;
