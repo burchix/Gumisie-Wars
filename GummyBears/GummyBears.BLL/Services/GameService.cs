@@ -41,7 +41,9 @@ namespace GummyBears.BLL.Services
             Game actualGame = _gameRepository.GetActualByUser(user.Id);
             if (actualGame != null)
             {
-                return actualGame.ProceedMapToLastState();
+                actualGame = actualGame.ProceedMapToLastState();
+                ActionsLogic.GetPossibleActions(actualGame.Map);
+                return actualGame;
             }
 
             Game game = new Game() { MapId = mapId, UserId = user.Id };
@@ -59,11 +61,12 @@ namespace GummyBears.BLL.Services
             actualGame.ProceedMapToLastState();
 
             actualGame.PlayerMoves.Add(action.Normalize(actualGame));
-            actualGame.OpponentMoves.Add(AILogic.GenerateAction(actualGame.Map));
+            actualGame.ProceedMapStep(actualGame.PlayerMoves.Last(), PlayerType.Player);
 
-            actualGame.ProceedMapStep(actualGame.PlayerMoves.Last(), PlayerType.Player)
-                      .ProceedMapStep(actualGame.OpponentMoves.Last(), PlayerType.AI)
-                      .UpdateResources();
+            actualGame.OpponentMoves.Add(AILogic.GenerateAction(actualGame.Map).Normalize(actualGame));
+            actualGame.ProceedMapStep(actualGame.OpponentMoves.Last(), PlayerType.AI);
+
+            actualGame.UpdateResources();
 
             if (actualGame.IsFinished || !actualGame.Map.Fields.Any(x => x.Owner == FieldOwner.AI) || !actualGame.Map.Fields.Any(x => x.Owner == FieldOwner.Player))
             {

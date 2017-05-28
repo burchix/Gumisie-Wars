@@ -41,8 +41,8 @@ namespace GummyBearsGame.Forms
             DrawMap();
             EnableOperations();
             
-            goldLabel.Text = $"Złoto: {_game.Map.Money}";
-            juiceLabel.Text = $"Sok z gumijagód: {_game.Map.Juice}";
+            goldLabel.Text = $"Złoto: {_game.Map.Money:#.00}";
+            juiceLabel.Text = $"Sok z gumijagód: {_game.Map.Juice:#.00}";
 
             if (_game.IsFinished)
             {
@@ -97,14 +97,14 @@ namespace GummyBearsGame.Forms
                             if (field.GummiesNumber > 0)
                             {
                                 g.DrawImage(image, new RectangleF(w * i + 5, h * j + 20, w - 60, h - 40));
-                                g.DrawString($"x{field.GummiesNumber.ToString("N2")}", font, blackBrush, w * i + w - 55, h * j + 20);
+                                g.DrawString($"x{field.GummiesNumber:#0.0}", font, blackBrush, w * i + w - 70, h * j + 20);
                             }
                         }
 
-                        g.DrawString($"Gumisie: {field.GummiesMultiplier}", smallFont, blackBrush, w * i + w - 60, h * j + h - 48);
-                        g.DrawString($"Sok: {field.JuiceMultiplier}", smallFont, blackBrush, w * i + w - 60, h * j + h - 36);
-                        g.DrawString($"Złoto: {field.GoldMultiplier}", smallFont, blackBrush, w * i + w - 60, h * j + h - 24);
-                        g.DrawString($"Obrona: x{1.5}", smallFont, blackBrush, w * i + w - 60, h * j + h - 12);
+                        g.DrawString($"Gumisie: {field.GummiesMultiplier:#0.00}", smallFont, blackBrush, w * i + w - 70, h * j + h - 48);
+                        g.DrawString($"Sok: {field.JuiceMultiplier:#0.00}", smallFont, blackBrush, w * i + w - 70, h * j + h - 36);
+                        g.DrawString($"Złoto: {field.GoldMultiplier:#0.00}", smallFont, blackBrush, w * i + w - 70, h * j + h - 24);
+                        g.DrawString($"Obrona: x{field.DefenceMultiplier:#0.00}", smallFont, blackBrush, w * i + w - 70, h * j + h - 12);
                     }
 
                     k++;
@@ -267,7 +267,7 @@ namespace GummyBearsGame.Forms
 
         private void sacrificeButton_Click(object sender, EventArgs e)
         {
-            GameAction action = new GameAction() { Action = ActionType.Sacrifice };
+            GameAction action = new GameAction() { Action = ActionType.Sacrifice, Field1 = _activeIndex };
             _game = _gameService.MakeMove(_sessionHandle, action);
             UpdateGame();
         }

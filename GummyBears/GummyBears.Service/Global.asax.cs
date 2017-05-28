@@ -21,7 +21,7 @@ namespace GummyBears.Service
             AutofacHostFactory.Container = container;
         }
 
-        void Application_Error(object sender, EventArgs e)
+        void Application_Error()
         {
             // Get the exception object.
             Exception ex = Server.GetLastError();
