@@ -43,7 +43,7 @@ namespace GummyBearsGame.Forms
             if (!string.IsNullOrEmpty(sessionHandle) && mapComboBox.SelectedIndex >= 0)
             {
                 Game game = _gameService.StartGame(sessionHandle, _maps[mapComboBox.SelectedIndex].Id);
-                new GameForm(sessionHandle, game).ShowDialog();
+                new GameForm(_gameService, sessionHandle, game).ShowDialog();
             }
             else
             {

@@ -1,5 +1,6 @@
 ﻿using GummyBearsGame.Forms;
 using System;
+using System.ServiceModel;
 using System.Windows.Forms;
 
 namespace GummyBearsGame
@@ -12,7 +13,9 @@ namespace GummyBearsGame
         [STAThread]
         static void Main()
         {
-            GameService.ServiceClient gameService = new GameService.ServiceClient();
+            var binding = new BasicHttpBinding();
+            binding.MaxReceivedMessageSize = int.MaxValue;
+            GameService.ServiceClient gameService = new GameService.ServiceClient(binding, new EndpointAddress("http://localhost:52291/Service.svc"));
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

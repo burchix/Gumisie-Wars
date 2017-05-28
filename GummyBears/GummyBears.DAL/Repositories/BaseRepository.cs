@@ -32,7 +32,8 @@ namespace GummyBears.DAL.Repositories
 
         public virtual void Update(TModel model)
         {
-            TDBModel dbModel = _mapper.Map(model, _dbSet.Find(model.Id));
+            TDBModel dbModel = _dbSet.Find(model.Id);
+            dbModel = _mapper.Map(model, dbModel);
             _dbContext.Entry(dbModel).State = EntityState.Modified;
             _dbContext.SaveChanges();
         }
@@ -49,13 +50,13 @@ namespace GummyBears.DAL.Repositories
 
         public virtual TModel[] GetAll()
         {
-            var collection = BuildQuery(_dbSet).ToList();
+            var collection = BuildQuery(_dbSet).AsNoTracking().ToList();
             return collection.Select(m => _mapper.Map<TModel>(m)).ToArray();
         }
 
         public virtual TModel GetById(int id)
         {
-            TDBModel dbModel = BuildQuery(_dbSet).SingleOrDefault(x => x.Id == id);
+            TDBModel dbModel = BuildQuery(_dbSet).AsNoTracking().SingleOrDefault(x => x.Id == id);
             if (dbModel == null) return null;
             return _mapper.Map<TModel>(dbModel);
         }

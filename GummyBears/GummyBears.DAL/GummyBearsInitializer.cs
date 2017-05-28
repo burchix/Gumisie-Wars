@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace GummyBears.DAL
 {
-    public class GummyBearsInitializer : System.Data.Entity.DropCreateDatabaseAlways/*DropCreateDatabaseIfModelChanges*/<GummyBearsContext>
+    public class GummyBearsInitializer : System.Data.Entity./*DropCreateDatabaseAlways*/DropCreateDatabaseIfModelChanges<GummyBearsContext>
     {
         protected override void Seed(GummyBearsContext context)
         {
@@ -23,7 +23,7 @@ namespace GummyBears.DAL
                 Name = "Basic Map no. 1",
                 DefenceMultiplier = "1,0;1,0;1,0;1,0;1,0;1,0;1,0;1,0;1,0;1,0;1,0;1,0;1,0;1,0;1,0;1,0",
                 JuiceMultiplier = "1,0;1,0;1,0;1,0;1,0;15,0;15,0;1,0;1,0;15,0;15,0;1,0;1,0;1,0;1,0;1,0",
-                GoldMultiplier = "10,0;10,0;10,0;10,0;10,0;150,0;150,0;10,0;10,0;150,0;150,0;10,0;10,0;10,0;10,0;10,0",
+                GoldMultiplier = "1,0;1,0;1,0;1,0;1,0;15,0;15,0;1,0;1,0;15,0;15,0;1,0;1,0;1,0;1,0;1,0",
                 GummiesMultiplier = "1;1;1;1;1;15;15;1;1;15;15;1;1;1;1;1",
                 GummiesNumber = "5;0;0;0;0;0;0;0;0;0;0;0;0;0;0;5",
                 GummiesType = "0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0",
@@ -40,8 +40,8 @@ namespace GummyBears.DAL
                 JuiceMultiplier = "1,0;1,0;1,0;1,0;1,0;1,0;1,0;1,0;1,0",
                 GoldMultiplier = "1,0;1,0;1,0;1,0;1,0;1,0;1,0;1,0;1,0",
                 GummiesMultiplier = "1;1;1;1;1;1;1;1;1",
-                GummiesNumber = "1;0;0;0;0;0;0;0;0;1",
-                GummiesType = "0;0;0;0;0;0;0;0;0;0",
+                GummiesNumber = "1;0;0;0;0;0;0;0;1",
+                GummiesType = "0;0;0;0;0;0;0;0;0",
                 Owner = "1;0;0;0;0;0;0;0;2"
             };
             context.Maps.Add(map2);

@@ -33,7 +33,7 @@
       <xs:element minOccurs="0" name="DefenceMultiplier" type="xs:decimal" />
       <xs:element minOccurs="0" name="GoldMultiplier" type="xs:decimal" />
       <xs:element minOccurs="0" name="GummiesMultiplier" type="xs:int" />
-      <xs:element minOccurs="0" name="GummiesNumber" type="xs:int" />
+      <xs:element minOccurs="0" name="GummiesNumber" type="xs:decimal" />
       <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/GummyBears.Common.Enums" minOccurs="0" name="GummiesType" type="q1:GummyType" />
       <xs:element minOccurs="0" name="JuiceMultiplier" type="xs:decimal" />
       <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/GummyBears.Common.Enums" minOccurs="0" name="Owner" type="q2:FieldOwner" />

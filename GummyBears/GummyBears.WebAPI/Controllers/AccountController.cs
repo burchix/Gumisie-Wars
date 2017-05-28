@@ -14,8 +14,6 @@ namespace GummyBears.WebAPI.Controllers
     {
         private IAuthenticationService _authenticationService;
 
-        public AccountController() { }
-
         public AccountController(IAuthenticationService authenticationService)
         {
             _authenticationService = authenticationService;

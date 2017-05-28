@@ -13,8 +13,9 @@ namespace GummyBears.DAL
         public GummyBearsContext()
             : base("GummyBearsContext")
         {
-            this.Configuration.LazyLoadingEnabled = false;
-            this.Configuration.ProxyCreationEnabled = false;
+            Configuration.LazyLoadingEnabled = false;
+            Configuration.ProxyCreationEnabled = false;
+            Configuration.AutoDetectChangesEnabled = false;
         }
 
         public DbSet<UserDB> Users { get; set; }

@@ -221,7 +221,7 @@ namespace GummyBearsGame.GameService {
         private int GummiesMultiplierField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int GummiesNumberField;
+        private decimal GummiesNumberField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private GummyBearsGame.GameService.GummyType GummiesTypeField;
@@ -285,7 +285,7 @@ namespace GummyBearsGame.GameService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int GummiesNumber {
+        public decimal GummiesNumber {
             get {
                 return this.GummiesNumberField;
             }
