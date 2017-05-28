@@ -54,15 +54,15 @@ namespace GummyBears.DAL.Mapper
 
             CreateMap<Map, MapDB>()
                 .ForMember(db => db.DefenceMultiplier,
-                           opts => opts.ResolveUsing((s, d, m) => string.Join(";", s.Fields.Select(x => x.DefenceMultiplier.ToString("N2")))))
+                           opts => opts.ResolveUsing((s, d, m) => string.Join(";", s.Fields.Select(x => x.DefenceMultiplier.ToString("N5")))))
                 .ForMember(db => db.GummiesMultiplier,
                            opts => opts.ResolveUsing((s, d, m) => string.Join(";", s.Fields.Select(x => x.GummiesMultiplier.ToString()))))
                 .ForMember(db => db.GoldMultiplier,
-                           opts => opts.ResolveUsing((s, d, m) => string.Join(";", s.Fields.Select(x => x.GoldMultiplier.ToString("N2")))))
+                           opts => opts.ResolveUsing((s, d, m) => string.Join(";", s.Fields.Select(x => x.GoldMultiplier.ToString("N5")))))
                 .ForMember(db => db.JuiceMultiplier,
-                           opts => opts.ResolveUsing((s, d, m) => string.Join(";", s.Fields.Select(x => x.JuiceMultiplier.ToString("N2")))))
+                           opts => opts.ResolveUsing((s, d, m) => string.Join(";", s.Fields.Select(x => x.JuiceMultiplier.ToString("N5")))))
                 .ForMember(db => db.GummiesNumber,
-                           opts => opts.ResolveUsing((s, d, m) => string.Join(";", s.Fields.Select(x => x.GummiesNumber))))
+                           opts => opts.ResolveUsing((s, d, m) => string.Join(";", s.Fields.Select(x => x.GummiesNumber.ToString("N5")))))
                 .ForMember(db => db.GummiesType,
                            opts => opts.ResolveUsing((s, d, m) => string.Join(";", s.Fields.Select(x => (int)x.GummiesType))))
                 .ForMember(db => db.Owner,
