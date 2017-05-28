@@ -16,6 +16,8 @@ namespace GummyBears.WebAPI.Controllers
     {
         private IStatsService _statsService;
 
+        public StatsController() { }
+
         public StatsController(IStatsService statsService)
         {
             _statsService = statsService;

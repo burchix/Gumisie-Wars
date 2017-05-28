@@ -186,6 +186,10 @@
       <Project>{f4ad5167-1a33-4b57-a383-97118cb88da6}</Project>
       <Name>GummyBears.DTO</Name>
     </ProjectReference>
+    <ProjectReference Include="..\GummyBears.Service\GummyBears.Service.csproj">
+      <Project>{357E701E-F46A-47F1-8942-5851B94DD667}</Project>
+      <Name>GummyBears.Service</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
