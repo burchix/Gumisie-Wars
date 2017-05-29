@@ -13,6 +13,9 @@ namespace GummyBears.Service
         Map[] GetMaps();
 
         [OperationContract]
+        Map SaveMap(Map map);
+
+        [OperationContract]
         Game StartGame(string sessionHandle, int mapId);
 
         [OperationContract]

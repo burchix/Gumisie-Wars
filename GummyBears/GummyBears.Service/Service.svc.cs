@@ -30,6 +30,11 @@ namespace GummyBears.Service
             return _gameService.GetAllMaps();
         }
 
+        public Map SaveMap(Map map)
+        {
+            return _gameService.CreateMap(map);
+        }
+
         public Game StartGame(string sessionHandle, int mapId)
         {
             User user = VerifyUser(sessionHandle);

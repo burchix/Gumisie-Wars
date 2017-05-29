@@ -35,6 +35,13 @@ namespace GummyBears.BLL.Services
 
         public Map[] GetAllMaps() => _mapRepository.GetAll();
 
+        public Map CreateMap(Map map)
+        {
+            map.CreateDate = DateTime.Now;
+            int id = _mapRepository.Create(map);
+            return _mapRepository.GetById(id);
+        }
+
         // Jeżeli użytkownik ma jakąś nieukończoną grę, to jest ona zwracana
         public Game StartGame(User user, int mapId)
         {
