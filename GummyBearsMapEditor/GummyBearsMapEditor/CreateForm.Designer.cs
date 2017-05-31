@@ -40,7 +40,6 @@
             this.gummyNrLabel = new System.Windows.Forms.Label();
             this.gummyTypeComboBox = new System.Windows.Forms.ComboBox();
             this.defenceLabel = new System.Windows.Forms.Label();
-            this.saveFieldButton = new System.Windows.Forms.Button();
             this.defenceUpDown = new System.Windows.Forms.NumericUpDown();
             this.goldUpDown = new System.Windows.Forms.NumericUpDown();
             this.gummyNrUpDown = new System.Windows.Forms.NumericUpDown();
@@ -163,6 +162,7 @@
             this.gummyTypeComboBox.Name = "gummyTypeComboBox";
             this.gummyTypeComboBox.Size = new System.Drawing.Size(121, 21);
             this.gummyTypeComboBox.TabIndex = 25;
+            this.gummyTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.gummyTypeComboBox_SelectedIndexChanged);
             // 
             // defenceLabel
             // 
@@ -175,22 +175,10 @@
             this.defenceLabel.TabIndex = 26;
             this.defenceLabel.Text = "Obrona (boost):";
             // 
-            // saveFieldButton
-            // 
-            this.saveFieldButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.saveFieldButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.saveFieldButton.Location = new System.Drawing.Point(798, 219);
-            this.saveFieldButton.Name = "saveFieldButton";
-            this.saveFieldButton.Size = new System.Drawing.Size(121, 27);
-            this.saveFieldButton.TabIndex = 28;
-            this.saveFieldButton.Text = "Zapisz pole";
-            this.saveFieldButton.UseVisualStyleBackColor = true;
-            this.saveFieldButton.Click += new System.EventHandler(this.saveFieldButton_Click);
-            // 
             // defenceUpDown
             // 
             this.defenceUpDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.defenceUpDown.DecimalPlaces = 1;
+            this.defenceUpDown.DecimalPlaces = 2;
             this.defenceUpDown.Increment = new decimal(new int[] {
             1,
             0,
@@ -205,6 +193,12 @@
             this.defenceUpDown.Name = "defenceUpDown";
             this.defenceUpDown.Size = new System.Drawing.Size(121, 20);
             this.defenceUpDown.TabIndex = 29;
+            this.defenceUpDown.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.defenceUpDown.ValueChanged += new System.EventHandler(this.defenceUpDown_ValueChanged);
             // 
             // goldUpDown
             // 
@@ -219,6 +213,12 @@
             this.goldUpDown.Name = "goldUpDown";
             this.goldUpDown.Size = new System.Drawing.Size(121, 20);
             this.goldUpDown.TabIndex = 30;
+            this.goldUpDown.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.goldUpDown.ValueChanged += new System.EventHandler(this.goldUpDown_ValueChanged);
             // 
             // gummyNrUpDown
             // 
@@ -236,6 +236,12 @@
             this.gummyMultUpDown.Name = "gummyMultUpDown";
             this.gummyMultUpDown.Size = new System.Drawing.Size(121, 20);
             this.gummyMultUpDown.TabIndex = 32;
+            this.gummyMultUpDown.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.gummyMultUpDown.ValueChanged += new System.EventHandler(this.gummyMultUpDown_ValueChanged);
             // 
             // juiceUpDown
             // 
@@ -245,6 +251,12 @@
             this.juiceUpDown.Name = "juiceUpDown";
             this.juiceUpDown.Size = new System.Drawing.Size(121, 20);
             this.juiceUpDown.TabIndex = 33;
+            this.juiceUpDown.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.juiceUpDown.ValueChanged += new System.EventHandler(this.juiceUpDown_ValueChanged);
             // 
             // CreateForm
             // 
@@ -257,7 +269,6 @@
             this.Controls.Add(this.gummyNrUpDown);
             this.Controls.Add(this.goldUpDown);
             this.Controls.Add(this.defenceUpDown);
-            this.Controls.Add(this.saveFieldButton);
             this.Controls.Add(this.defenceLabel);
             this.Controls.Add(this.gummyTypeComboBox);
             this.Controls.Add(this.gummyNrLabel);
@@ -299,7 +310,6 @@
         private System.Windows.Forms.Label gummyNrLabel;
         private System.Windows.Forms.ComboBox gummyTypeComboBox;
         private System.Windows.Forms.Label defenceLabel;
-        private System.Windows.Forms.Button saveFieldButton;
         private System.Windows.Forms.NumericUpDown defenceUpDown;
         private System.Windows.Forms.NumericUpDown goldUpDown;
         private System.Windows.Forms.NumericUpDown gummyNrUpDown;

@@ -99,36 +99,7 @@ namespace GummyBearsMapEditor
         {
             DrawMap();
         }
-
-        private void gummyNrUpDown_ValueChanged(object sender, EventArgs e)
-        {
-            if (gummyNrUpDown.Value > 0) gummyTypeComboBox.Enabled = true;
-            else gummyTypeComboBox.Enabled = false;
-        }
-
-        private void ownerComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (ownerComboBox.SelectedIndex == (int)FieldOwner.Blocked)
-            {
-                defenceUpDown.Enabled = false;
-                goldUpDown.Enabled = false;
-                juiceUpDown.Enabled = false;
-                gummyMultUpDown.Enabled = false;
-                gummyNrUpDown.Enabled = false;
-                gummyTypeComboBox.Enabled = false;
-            }
-            else
-            {
-                defenceUpDown.Enabled = true;
-                goldUpDown.Enabled = true;
-                juiceUpDown.Enabled = true;
-                gummyMultUpDown.Enabled = true;
-                gummyNrUpDown.Enabled = true;
-                gummyNrUpDown_ValueChanged(sender, e);
-            }
-
-        }
-
+        
         private void gamePanel_MouseClick(object sender, MouseEventArgs e)
         {
             int x = e.X * _map.Width / gamePanel.Width;
@@ -150,6 +121,7 @@ namespace GummyBearsMapEditor
                 juiceUpDown.Value = _map.Fields[_activeIndex].JuiceMultiplier;
                 gummyMultUpDown.Value = _map.Fields[_activeIndex].GummiesMultiplier;
                 gummyNrUpDown.Value = _map.Fields[_activeIndex].GummiesNumber;
+
                 if (_map.Fields[_activeIndex].GummiesNumber == 0)
                     gummyTypeComboBox.SelectedIndex = 0;
                 else
@@ -157,29 +129,100 @@ namespace GummyBearsMapEditor
             }
         }
 
-        private void saveFieldButton_Click(object sender, EventArgs e)
+        private void ownerComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (ownerComboBox.SelectedIndex >= 0)
+            if (ownerComboBox.SelectedIndex == (int)FieldOwner.Blocked)
             {
-                _map.Fields[_activeIndex].Owner = (FieldOwner)ownerComboBox.SelectedIndex;
-                if (_map.Fields[_activeIndex].Owner != FieldOwner.Blocked)
-                {
-                    _map.Fields[_activeIndex].GoldMultiplier = goldUpDown.Value;
-                    _map.Fields[_activeIndex].DefenceMultiplier = defenceUpDown.Value;
-                    _map.Fields[_activeIndex].JuiceMultiplier = juiceUpDown.Value;
-                    _map.Fields[_activeIndex].GummiesMultiplier = (int)gummyMultUpDown.Value;
-                    _map.Fields[_activeIndex].GummiesNumber = (int)gummyNrUpDown.Value;
-                    if (_map.Fields[_activeIndex].GummiesNumber == 0)
-                        _map.Fields[_activeIndex].GummiesType = GummyType.Basic;
-                    else
-                        _map.Fields[_activeIndex].GummiesType = (GummyType)gummyTypeComboBox.SelectedIndex;
-                }
+                defenceUpDown.Enabled = false;
+                goldUpDown.Enabled = false;
+                juiceUpDown.Enabled = false;
+                gummyMultUpDown.Enabled = false;
+                gummyNrUpDown.Enabled = false;
+                gummyTypeComboBox.Enabled = false;
+            }
+            else if(ownerComboBox.SelectedIndex == (int)FieldOwner.NoOne)
+            {
+                defenceUpDown.Enabled = true;
+                goldUpDown.Enabled = true;
+                juiceUpDown.Enabled = true;
+                gummyMultUpDown.Enabled = true;
+                gummyNrUpDown.Enabled = false;
+                gummyTypeComboBox.Enabled = false;
             }
             else
             {
-                MessageBox.Show("Nie wybrano pola");
+                defenceUpDown.Enabled = true;
+                goldUpDown.Enabled = true;
+                juiceUpDown.Enabled = true;
+                gummyMultUpDown.Enabled = true;
+                gummyNrUpDown.Enabled = true;
+                gummyNrUpDown_ValueChanged(sender, e);
             }
 
+            if (_activeIndex >= 0)
+            {
+                _map.Fields[_activeIndex].Owner = (FieldOwner)ownerComboBox.SelectedIndex;
+            }
+            DrawMap();
+        }
+
+        private void defenceUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            if (_activeIndex >= 0)
+            {
+                _map.Fields[_activeIndex].DefenceMultiplier = defenceUpDown.Value;
+            }
+            DrawMap();
+        }
+
+        private void goldUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            if (_activeIndex >= 0)
+            {
+                _map.Fields[_activeIndex].GoldMultiplier = goldUpDown.Value;
+            }
+            DrawMap();
+        }
+
+        private void juiceUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            if (_activeIndex >= 0)
+            {
+                _map.Fields[_activeIndex].JuiceMultiplier = juiceUpDown.Value;
+            }
+            DrawMap();
+        }
+
+        private void gummyMultUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            if (_activeIndex >= 0)
+            {
+                _map.Fields[_activeIndex].GummiesMultiplier = (int)gummyMultUpDown.Value;
+            }
+            DrawMap();
+        }
+
+        private void gummyNrUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            if (gummyNrUpDown.Value > 0) gummyTypeComboBox.Enabled = true;
+            else gummyTypeComboBox.Enabled = false;
+
+            if(_activeIndex >= 0)
+            {
+                _map.Fields[_activeIndex].GummiesNumber = (int)gummyNrUpDown.Value;
+                if (_map.Fields[_activeIndex].GummiesNumber == 0)
+                    _map.Fields[_activeIndex].GummiesType = GummyType.Basic;
+            }
+            DrawMap();
+        }
+
+        private void gummyTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (_activeIndex >= 0)
+            {
+                _map.Fields[_activeIndex].GummiesType = (GummyType)gummyTypeComboBox.SelectedIndex;
+            }
+            DrawMap();
         }
 
         private void createMapButton_Click(object sender, EventArgs e)

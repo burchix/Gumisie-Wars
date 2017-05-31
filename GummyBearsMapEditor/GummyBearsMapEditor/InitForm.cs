@@ -49,7 +49,15 @@ namespace GummyBearsMapEditor
                     Name = nameTextBox.Text,
                     Width = width,
                     Height = height,
-                    Fields = Enumerable.Range(1, width * height).Select(f => new Field() { Owner = FieldOwner.NoOne }).ToArray(),
+                    Fields = Enumerable.Range(1, width * height).Select(f => new Field() {
+                        Owner = FieldOwner.NoOne,
+                        DefenceMultiplier = 1,
+                        GoldMultiplier = 1,
+                        JuiceMultiplier = 1,
+                        GummiesMultiplier = 1,
+                        GummiesNumber = 0,
+                        GummiesType = GummyType.Basic
+                    }).ToArray(),
                     Money = money,
                     MoneyAI = moneyAI,
                     Juice = juice,
