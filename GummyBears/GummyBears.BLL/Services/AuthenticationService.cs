@@ -32,6 +32,11 @@ namespace GummyBears.BLL.Services
 
         #region Public Methods
 
+        public int Register(string login, string password)
+        {
+            return _userRepository.Create(new User() { Login = login, Password = password });
+        }
+
         public User GetUser(string login, string password)
         {
             User user = _userRepository.GetByLogin(login);
