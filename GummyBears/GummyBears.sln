@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GummyBears.Service", "Gummy
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GummyBears.WebAPI", "GummyBears.WebAPI\GummyBears.WebAPI.csproj", "{281E74EF-6480-4309-83A0-969EA693E91A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GummyBears.Tests", "GummyBears.Tests\GummyBears.Tests.csproj", "{A4458C4A-460A-4027-952A-6AC879B47921}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{281E74EF-6480-4309-83A0-969EA693E91A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{281E74EF-6480-4309-83A0-969EA693E91A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{281E74EF-6480-4309-83A0-969EA693E91A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4458C4A-460A-4027-952A-6AC879B47921}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4458C4A-460A-4027-952A-6AC879B47921}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4458C4A-460A-4027-952A-6AC879B47921}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4458C4A-460A-4027-952A-6AC879B47921}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

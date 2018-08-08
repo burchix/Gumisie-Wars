@@ -64,6 +64,7 @@ namespace GummyBearsMapEditor
                     JuiceAI = juiceAI
                 };
                 new CreateForm(_gameService, map).ShowDialog();
+                Close();
             }
             else
             {
